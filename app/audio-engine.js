@@ -64,11 +64,39 @@ function scheduleClick(time, isAccent) {
   src.start(time);
 }
 
-function scheduler(bpm, beatsPerBar) {
+function getCurrentBPM(song, currentSeconds) {
+  // Se a música não tiver mapa, retorna o BPM padrão
+  if (!song.bpmMap || song.bpmMap.length === 0) {
+    return Number(song.bpm) || 120;
+  }
+
+  // Vasculha o mapa para encontrar o BPM ativo naquele segundo
+  let activeBpm = song.bpmMap[0].bpm;
+  for (let i = 0; i < song.bpmMap.length; i++) {
+    if (currentSeconds >= song.bpmMap[i].time) {
+      activeBpm = song.bpmMap[i].bpm;
+    } else {
+      break; // Já passou do tempo atual, interrompe a busca
+    }
+  }
+  return activeBpm;
+}
+
+// Alterado: agora recebe o objeto 'song' em vez de um BPM fixo
+function scheduler(song, beatsPerBar) {
   while (currentNoteTime < audioCtx.currentTime + scheduleAheadTime) {
     const isAccent = (currentBeatInBar % beatsPerBar === 0);
     scheduleClick(currentNoteTime, isAccent);
-    currentNoteTime += secondsPerBeat(bpm);
+
+    // 1. Descobre em qual segundo da música esse click está acontecendo
+    const songOffset = Number(song.offset) || 0;
+    const timeInSong = currentNoteTime - startTime - songOffset;
+
+    // 2. Consulta o radar para saber o BPM exato desse milissegundo
+    const dynamicBPM = getCurrentBPM(song, timeInSong);
+
+    // 3. Calcula o próximo click baseado no BPM dinâmico
+    currentNoteTime += secondsPerBeat(dynamicBPM);
     currentBeatInBar = (currentBeatInBar + 1) % beatsPerBar;
   }
 }
@@ -121,7 +149,7 @@ export async function startAll(song) {
   currentBeatInBar = 0;
   currentNoteTime = startAt + offset;
 
-  schedulerTimerId = setInterval(() => scheduler(bpm, beatsPerBar), lookahead);
+  schedulerTimerId = setInterval(() => scheduler(song, beatsPerBar), lookahead);
   isPlaying = true;
 }
 
@@ -145,8 +173,9 @@ export function seekTo(percent, song) {
 
   // 4. Recalcula a matemática do Metrônomo
   const beatsPerBar = parseInt(String(song.timeSignature).split('/')[0], 10) || 4;
-  const bpm = Number(song.bpm) || 120;
-  const secPerBeat = secondsPerBeat(bpm);
+  // DINÂMICO: Pega o BPM do exato ponto para onde o usuário arrastou a barra
+  const dynamicBPM = getCurrentBPM(song, offsetTime); 
+  const secPerBeat = secondsPerBeat(dynamicBPM);
   const songOffset = Number(song.offset) || 0;
   
   const timeInMetro = offsetTime - songOffset;
@@ -161,7 +190,7 @@ export function seekTo(percent, song) {
     currentNoteTime = audioCtx.currentTime + Math.abs(timeInMetro);
   }
 
-  schedulerTimerId = setInterval(() => scheduler(bpm, beatsPerBar), lookahead);
+  schedulerTimerId = setInterval(() => scheduler(song, beatsPerBar), lookahead);
 }
 
 export async function togglePause() {

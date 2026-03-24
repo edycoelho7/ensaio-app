@@ -31,7 +31,7 @@ let animationFrameId = null;
 let isPaused = false;
 let isDragging = false; 
 
-// --- NOVO: LÓGICA DE HISTÓRICO (ÚLTIMAS TOCADAS) ---
+// --- LÓGICA DE HISTÓRICO (ÚLTIMAS TOCADAS) ---
 
 // Puxa a memória do celular da pessoa
 function getHistoryIds() {
@@ -63,6 +63,9 @@ function getDefaultList() {
 // ---------------------------------------------------
 
 function renderList(items) {
+  // 1. Filtra a lista recebida para ignorar as músicas inativas
+  items = items.filter(musica => musica.ativo !== false);
+
   songListEl.innerHTML = '';
   if (!items || !items.length) {
     songListEl.innerHTML = '<li class="muted">Nada encontrado…</li>';
@@ -87,8 +90,19 @@ function renderList(items) {
     const li = document.createElement('li');
     li.textContent = `${s.title} — ${s.artist || 'Desconhecido'}`;
     li.tabIndex = 0;
-    li.addEventListener('click', () => applySong(s.id));
-    li.addEventListener('keydown', (e) => { if (e.key === 'Enter') applySong(s.id); });
+    
+    // ATUALIZADO AQUI: Seleciona a música e força o play automático
+    li.addEventListener('click', () => { 
+      applySong(s.id); 
+      forcePlay(); 
+    });
+    li.addEventListener('keydown', (e) => { 
+      if (e.key === 'Enter') { 
+        applySong(s.id); 
+        forcePlay(); 
+      } 
+    });
+    
     songListEl.appendChild(li);
   });
 }
@@ -134,11 +148,21 @@ function updateProgress() {
   const duration = getDuration();
 
   if (duration > 0 && !isDragging) {
-    currentTimeDisplay.textContent = formatTime(current);
-    durationDisplay.textContent = formatTime(duration);
-    const percentage = (current / duration) * 100;
-    progressBar.value = percentage;
-    progressBar.style.setProperty('--value', `${percentage}%`);
+    
+    // --- NOVO: LÓGICA DE REPETIÇÃO (LOOP) ---
+    // Se o tempo atual estiver a um triz de acabar (margem de 0.05s de segurança)
+    if (current >= duration - 0.05) {
+      seekTo(0, selectedSong); // Rebobina a música e o metrônomo para o início (0%)
+    } else {
+      // Atualiza a barra de progresso normalmente
+      currentTimeDisplay.textContent = formatTime(current);
+      durationDisplay.textContent = formatTime(duration);
+      const percentage = (current / duration) * 100;
+      progressBar.value = percentage;
+      progressBar.style.setProperty('--value', `${percentage}%`);
+    }
+    // ----------------------------------------
+    
   }
   animationFrameId = requestAnimationFrame(updateProgress);
 }
@@ -158,6 +182,41 @@ progressBar.addEventListener('change', (e) => {
     seekTo(e.target.value, selectedSong);
   }
 });
+
+// NOVO: Função que força o play automático quando clica na lista
+async function forcePlay() {
+  stopAll(); 
+  isPaused = false;
+  
+  // Zera a barra de progresso visualmente antes de tocar a nova
+  if (animationFrameId) cancelAnimationFrame(animationFrameId);
+  progressBar.value = 0;
+  progressBar.style.setProperty('--value', '0%');
+  currentTimeDisplay.textContent = '0:00';
+
+  // Muda o botão para "Carregando"
+  playBtn.disabled = true; 
+  playBtn.textContent = 'Carregando...';
+
+  try {
+    await startAll(selectedSong);
+    
+    setVozVolume(parseFloat(vozVol.value));
+    setPlaybackVolume(parseFloat(playbackVol.value));
+    setMetroVolume(parseFloat(metroVol.value));
+
+    updateProgress();
+    
+    // Atualiza o botão para "Pause" após carregar com sucesso
+    playBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="white" aria-hidden="true" style="margin-right:8px"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path></svg> Pause`;
+  } catch (err) {
+    console.error("Erro ao carregar áudio:", err);
+    // Devolve o botão de "Play" se der erro
+    playBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="white" aria-hidden="true" style="margin-right:8px"><path d="M8 5v14l11-7z"></path></svg> Play`;
+  } finally {
+    playBtn.disabled = false;
+  }
+}
 
 playBtn.addEventListener('click', async () => {
   if (!selectedSong) { 
