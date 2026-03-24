@@ -23,5 +23,8 @@ export const SONGS = [
     bpm: 90,
     timeSignature: "3/4",
     offset: 0.00
-  }
+  },
+  {
+    id: "1", title: "Meu Maior Amor", artist: "Nivea Soares", bpm: 148, timeSignature: "4/4", offset: -0.15
+  },
 ];
