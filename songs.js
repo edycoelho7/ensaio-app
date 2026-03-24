@@ -9,11 +9,11 @@ export const SONGS = [
     offset: -0.15
   },
   {
-    id: "2026-03_valsa-do-depois",
-    title: "Valsa do Ontem",
-    artist: "Trio",
-    bpm: 90,
-    timeSignature: "3/4",
+    id: "2",
+    title: "Algo Novo Vindo",
+    artist: "Get Worship",
+    bpm: 91,
+    timeSignature: "4/4",
     offset: 0.00
   },
   {
