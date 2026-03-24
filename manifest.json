@@ -1,0 +1,16 @@
+{
+  "name": "App Ensaio Banda",
+  "short_name": "Ensaio",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#030814",
+  "theme_color": "#030814",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3844/3844724.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
