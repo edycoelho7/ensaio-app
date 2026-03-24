@@ -1,0 +1,143 @@
+:root {
+  --bg: #030814;         /* Fundo azul muito escuro (quase preto) */
+  --card: #0a1122;       /* Fundo das caixas num tom sutilmente mais claro */
+  --text: #ffffff;       /* Textos em branco puro */
+  --muted: #7d93b3;      /* Textos secundários num tom cinza-azulado elegante */
+
+  /* Cores Modernas (Estilo Carteira Digital) */
+  --primary: #00b4d8;    /* Azul vibrante moderno (Botão principal e barras preenchidas) */
+  --primary-2: #00e5ff;  /* Azul claro brilhante (Bolinha da barra e hover) */
+
+  --border: #132445;     /* Borda e fundo da parte vazia das barras */
+  --accent: #00e5ff;     /* Cor de destaque para a música selecionada */
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--bg); color: var(--text);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+/* Layout */
+.container { max-width: 860px; margin: 0 auto; padding: 16px; }
+.topbar {
+  padding: 14px 16px; border-bottom: 1px solid var(--border);
+  position: sticky; top: 0;
+  background: linear-gradient(180deg, rgba(3,8,20,.85), rgba(3,8,20,.55));
+  backdrop-filter: blur(6px);
+}
+.brand { display: flex; align-items: center; gap: 12px; }
+.logo-ebnz { width: 44px; height: 44px; }
+h1 { font-size: 22px; margin: 0; }
+
+.card {
+  background: linear-gradient(180deg, rgba(10,17,34,.92), rgba(10,17,34,.78));
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px; margin: 16px 0;
+  box-shadow: 0 10px 24px rgba(0,0,0,.35);
+}
+.grid2 { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; align-items: center; }
+@media (max-width: 640px){ .grid2 { grid-template-columns: 1fr; } }
+
+.lbl { display: block; margin-bottom: 6px; }
+.muted { color: var(--muted); }
+.mt16 { margin-top: 16px; }
+.title-song { font-weight: 700; font-size: 20px; }
+.meta { text-align: right; display: grid; gap: 8px; justify-items: end; }
+
+.divider { border: none; height: 1px; background: var(--border); margin: 12px 0 0; }
+
+/* Lista (abaixo da busca) */
+.list { list-style: none; margin: 8px 0 0; padding: 0; }
+.list li {
+  padding: 12px 14px; border: 1px solid var(--border);
+  border-radius: 12px; margin-bottom: 8px; background: #0b1528;
+  cursor: pointer; display: flex; align-items: center; justify-content: space-between;
+  transition: all 0.2s ease;
+}
+.list li:hover, .list li:focus { background: #111e38; outline: none; }
+
+/* Retângulo da música selecionada */
+.list li.selected { 
+  border-color: var(--accent); 
+  background: rgba(0, 180, 216, 0.1); /* Fundo levemente azul para destacar */
+  box-shadow: 0 0 0 1px var(--accent) inset; 
+}
+
+/* Inputs e botões */
+input[type="text"] {
+  width: 100%; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--border);
+  background: #050a16; color: var(--text); outline: none;
+}
+input[type="text"]:focus {
+  border-color: var(--primary);
+}
+
+.btn {
+  width: 100%; padding: 12px 16px; border-radius: 14px; border: 1px solid var(--border);
+  background: #111e38; color: var(--text); font-size: 16px; cursor: pointer;
+  transition: transform .02s ease, background .2s ease;
+}
+
+/* Botão Play (Azul vibrante) */
+.btn.primary {
+  background-color: var(--primary);
+  color: #030814; /* Texto escuro para contrastar no botão azul */
+  font-weight: 700;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 180, 216, 0.3); /* Efeito de brilho */
+}
+
+/* Força o ícone do Play/Pause a ficar escuro também */
+.btn.primary svg {
+  fill: #030814 !important; 
+}
+
+.btn.primary:hover {
+  background-color: var(--primary-2);
+}
+
+.btn:active { transform: translateY(1px); }
+
+/* Mixer */
+.row { margin-top: 14px; }
+.row-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+
+/* Slider básico */
+.slider {
+  -webkit-appearance: none; width: 100%; height: 28px; background: transparent;
+}
+
+/* Rodapé */
+.footer { text-align: center; padding: 16px; border-top: 1px solid var(--border); opacity: .9; }
+
+/* --- TRILHOS E BOLINHAS DAS BARRAS DE VOLUME/PROGRESSO --- */
+
+/* Trilho preenchido (Azul até a bolinha, azul muito escuro depois) */
+input[type=range].slider::-webkit-slider-runnable-track {
+  height: 6px; border-radius: 999px;
+  background: linear-gradient(to right, var(--primary) var(--value, 0%), var(--border) var(--value, 0%));
+}
+
+input[type=range].slider::-moz-range-track {
+  height: 6px; border-radius: 999px;
+  background: linear-gradient(to right, var(--primary) var(--value, 0%), var(--border) var(--value, 0%));
+}
+
+/* Bolinha da barra (Azul claro brilhante) */
+input[type=range].slider::-webkit-slider-thumb {
+  -webkit-appearance: none; 
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--primary-2);
+  margin-top: -6px; /* Alinha a bolinha com o trilho */
+  box-shadow: 0 0 8px rgba(0, 229, 255, 0.5); /* Leve brilho na bolinha */
+}
+
+input[type=range].slider::-moz-range-thumb {
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--primary-2);
+  border: none;
+  box-shadow: 0 0 8px rgba(0, 229, 255, 0.5);
+}
