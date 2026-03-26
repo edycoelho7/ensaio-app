@@ -12,7 +12,7 @@ let startTime = 0;
 let vozSource = null;
 let playbackSource = null;
 
-// Buffers em Cache (para não baixar de novo ao arrastar a barra)
+// Buffers em Cache
 let currentSongId = null;
 let cachedVozBuf = null;
 let cachedPlaybackBuf = null;
@@ -45,7 +45,6 @@ async function loadBufferFromUrl(url) {
   return await audioCtx.decodeAudioData(buf);
 }
 
-// Atualizado para aceitar um tempo de início (offset)
 function connectAndStartBuffer(buffer, when, gainNode, offset = 0) {
   const src = audioCtx.createBufferSource();
   src.buffer = buffer;
@@ -54,7 +53,8 @@ function connectAndStartBuffer(buffer, when, gainNode, offset = 0) {
   return src;
 }
 
-function secondsPerBeat(bpm) { return 60.0 / bpm; }
+// Previne erro matemático caso o BPM falhe
+function secondsPerBeat(bpm) { return 60.0 / (Number(bpm) || 120); }
 
 function scheduleClick(time, isAccent) {
   if (!clickAgudoBuf || !clickGraveBuf) return;
@@ -64,40 +64,52 @@ function scheduleClick(time, isAccent) {
   src.start(time);
 }
 
-function getCurrentBPM(song, currentSeconds) {
-  // Se a música não tiver mapa, retorna o BPM padrão
-  if (!song.bpmMap || song.bpmMap.length === 0) {
-    return Number(song.bpm) || 120;
-  }
+// CORREÇÃO 1: Adicionada tolerância para o JavaScript não se perder nos decimais
+function getSegmentAtTime(song, timeInSong) {
+  let activeSegment = { time: 0, bpm: Number(song.bpm) || 120 };
+  let nextSegment = null;
 
-  // Vasculha o mapa para encontrar o BPM ativo naquele segundo
-  let activeBpm = song.bpmMap[0].bpm;
-  for (let i = 0; i < song.bpmMap.length; i++) {
-    if (currentSeconds >= song.bpmMap[i].time) {
-      activeBpm = song.bpmMap[i].bpm;
-    } else {
-      break; // Já passou do tempo atual, interrompe a busca
+  if (song.bpmMap && song.bpmMap.length > 0) {
+    for (let i = 0; i < song.bpmMap.length; i++) {
+      // O "+ 0.01" é a mágica que impede o erro de precisão flutuante
+      if (timeInSong + 0.01 >= song.bpmMap[i].time) {
+        activeSegment = song.bpmMap[i];
+        nextSegment = song.bpmMap[i + 1] || null;
+      } else {
+        break;
+      }
     }
   }
-  return activeBpm;
+  return { activeSegment, nextSegment };
 }
 
-// Alterado: agora recebe o objeto 'song' em vez de um BPM fixo
+// CORREÇÃO 2: Trava de segurança para impedir o congelamento da tela
 function scheduler(song, beatsPerBar) {
+  let loopSafety = 0; // Inicia o contador de segurança
+
   while (currentNoteTime < audioCtx.currentTime + scheduleAheadTime) {
+    // Se o JS tentar bugar e repetir rápido demais, nós quebramos o ciclo na marra
+    if (loopSafety++ > 50) break; 
+
     const isAccent = (currentBeatInBar % beatsPerBar === 0);
     scheduleClick(currentNoteTime, isAccent);
 
-    // 1. Descobre em qual segundo da música esse click está acontecendo
     const songOffset = Number(song.offset) || 0;
     const timeInSong = currentNoteTime - startTime - songOffset;
 
-    // 2. Consulta o radar para saber o BPM exato desse milissegundo
-    const dynamicBPM = getCurrentBPM(song, timeInSong);
+    const { activeSegment, nextSegment } = getSegmentAtTime(song, timeInSong);
+    const secPerBeat = secondsPerBeat(activeSegment.bpm);
 
-    // 3. Calcula o próximo click baseado no BPM dinâmico
-    currentNoteTime += secondsPerBeat(dynamicBPM);
-    currentBeatInBar = (currentBeatInBar + 1) % beatsPerBar;
+    let nextNoteTimeCandidate = currentNoteTime + secPerBeat;
+    let nextTimeInSongCandidate = nextNoteTimeCandidate - startTime - songOffset;
+
+    if (nextSegment && nextTimeInSongCandidate >= nextSegment.time) {
+      currentNoteTime = startTime + songOffset + nextSegment.time;
+      currentBeatInBar = 0; 
+    } else {
+      currentNoteTime = nextNoteTimeCandidate;
+      currentBeatInBar = (currentBeatInBar + 1) % beatsPerBar;
+    }
   }
 }
 
@@ -108,23 +120,16 @@ export async function startAll(song) {
 
   if (audioCtx.state === 'suspended') await audioCtx.resume();
 
-  // Só baixa os áudios se for uma música nova
   if (currentSongId !== song.id) {
-    
-    // --- NOVO: LÓGICA DO CLOUDINARY ---
-    // URL base direta na raiz, usando v1
     const baseUrl = "https://res.cloudinary.com/dahzww1gv/video/upload/v1/";
-    
-    // Monta os links dinâmicos baseados no ID da música
     const urlVoz = `${baseUrl}${song.id}-voz.mp3`;
     const urlPlayback = `${baseUrl}${song.id}-playback.mp3`;
-    // -----------------------------------
 
     const [vozBuf, playbackBuf, agudoBuf, graveBuf] = await Promise.all([
       loadBufferFromUrl(urlVoz),
       loadBufferFromUrl(urlPlayback),
-      loadBufferFromUrl('click-agudo.mp3'), // O click continua na pasta local do app
-      loadBufferFromUrl('click-grave.mp3')  // O click continua na pasta local do app
+      loadBufferFromUrl('click-agudo.mp3'), 
+      loadBufferFromUrl('click-grave.mp3')  
     ]);
     
     cachedVozBuf = vozBuf;
@@ -140,7 +145,9 @@ export async function startAll(song) {
   startTime = startAt;
 
   const beatsPerBar = parseInt(String(song.timeSignature).split('/')[0], 10) || 4;
-  const bpm = Number(song.bpm) || 120;
+  
+  // Não precisamos pegar o BPM principal aqui, o loop se vira
+
   const offset = Number(song.offset) || 0;
 
   vozSource = connectAndStartBuffer(cachedVozBuf, startAt, vozGain);
@@ -153,41 +160,37 @@ export async function startAll(song) {
   isPlaying = true;
 }
 
-// Lógica de Seek (Pular para um momento)
 export function seekTo(percent, song) {
   if (!isPlaying || !audioCtx) return;
 
   const offsetTime = (percent / 100) * songDuration;
 
-  // 1. Para tudo que está tocando
   if (schedulerTimerId) { clearInterval(schedulerTimerId); schedulerTimerId = null; }
   try { vozSource && vozSource.stop(); } catch(e) {}
   try { playbackSource && playbackSource.stop(); } catch(e) {}
 
-  // 2. Atualiza o relógio para o novo tempo
   startTime = audioCtx.currentTime - offsetTime;
 
-  // 3. Dá o Play novamente a partir do novo tempo
   vozSource = connectAndStartBuffer(cachedVozBuf, audioCtx.currentTime, vozGain, offsetTime);
   playbackSource = connectAndStartBuffer(cachedPlaybackBuf, audioCtx.currentTime, playbackGain, offsetTime);
 
-  // 4. Recalcula a matemática do Metrônomo
   const beatsPerBar = parseInt(String(song.timeSignature).split('/')[0], 10) || 4;
-  // DINÂMICO: Pega o BPM do exato ponto para onde o usuário arrastou a barra
-  const dynamicBPM = getCurrentBPM(song, offsetTime); 
-  const secPerBeat = secondsPerBeat(dynamicBPM);
   const songOffset = Number(song.offset) || 0;
-  
-  const timeInMetro = offsetTime - songOffset;
+  const timeInSong = offsetTime - songOffset;
 
-  if (timeInMetro >= 0) {
-    const beatsPassed = Math.floor(timeInMetro / secPerBeat);
+  if (timeInSong >= 0) {
+    const { activeSegment } = getSegmentAtTime(song, timeInSong);
+    const secPerBeat = secondsPerBeat(activeSegment.bpm);
+
+    const timeIntoSegment = timeInSong - activeSegment.time;
+
+    const beatsPassed = Math.floor(timeIntoSegment / secPerBeat);
     currentBeatInBar = (beatsPassed + 1) % beatsPerBar;
-    const timeSinceLastBeat = timeInMetro % secPerBeat;
+    const timeSinceLastBeat = timeIntoSegment % secPerBeat;
     currentNoteTime = audioCtx.currentTime + (secPerBeat - timeSinceLastBeat);
   } else {
     currentBeatInBar = 0;
-    currentNoteTime = audioCtx.currentTime + Math.abs(timeInMetro);
+    currentNoteTime = audioCtx.currentTime + Math.abs(timeInSong);
   }
 
   schedulerTimerId = setInterval(() => scheduler(song, beatsPerBar), lookahead);
@@ -213,7 +216,7 @@ export function stopAll() {
   audioCtx.close();
   audioCtx = null;
   isPlaying = false;
-  currentSongId = null; // Limpa a música atual ao dar stop
+  currentSongId = null; 
 }
 
 export function setVozVolume(v){ if (vozGain) vozGain.gain.value = v; }
