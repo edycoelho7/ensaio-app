@@ -1,6 +1,7 @@
 // app/app.js
+// --- NOVO: Importando a função setTom do audio-engine ---
 import { SONGS } from '../songs.js';
-import { startAll, stopAll, togglePause, seekTo, setVozVolume, setPlaybackVolume, setMetroVolume, getDuration, getCurrentTime } from './audio-engine.js';
+import { startAll, stopAll, togglePause, seekTo, setVozVolume, setPlaybackVolume, setMetroVolume, setTom, getDuration, getCurrentTime } from './audio-engine.js';
 
 const songListEl   = document.getElementById('songList');
 const songSearchEl = document.getElementById('songSearch');
@@ -22,6 +23,11 @@ const vozPct = document.getElementById('vozPct');
 const playbackPct = document.getElementById('playbackPct');
 const metroPct = document.getElementById('metroPct');
 
+// --- NOVO: Elementos do Tom ---
+const tomSlider = document.getElementById('tomSlider');
+const tomDisplay = document.getElementById('tomDisplay');
+const tomCifra = document.getElementById('tomCifra');
+
 const progressBar = document.getElementById('progressBar');
 const currentTimeDisplay = document.getElementById('currentTimeDisplay');
 const durationDisplay = document.getElementById('durationDisplay');
@@ -31,9 +37,56 @@ let animationFrameId = null;
 let isPaused = false;
 let isDragging = false; 
 
-// --- LÓGICA DE HISTÓRICO (ÚLTIMAS TOCADAS) ---
+// --- NOVO: LÓGICA DE ESCALA MUSICAL PARA O TOM ---
+// Escala com sustenidos (usada quando sobe o tom)
+const escalaSubindo = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+// Escala com bemóis (usada quando desce o tom)
+const escalaDescendo = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
 
-// Puxa a memória do celular da pessoa
+function calcularNovaCifra(tomOriginal, semitonsAdicionados) {
+  if (!tomOriginal || tomOriginal === '-') return '-';
+
+  // Normaliza o tom original para encontrar na escala (trata C# igual a Db para facilitar)
+  let index = escalaSubindo.indexOf(tomOriginal);
+  if (index === -1) index = escalaDescendo.indexOf(tomOriginal);
+  if (index === -1) return tomOriginal; // Se por acaso não achar, retorna o que estava
+
+  // Calcula o novo índice rodando a lista (módulo 12)
+  let novoIndex = (index + semitonsAdicionados) % 12;
+  if (novoIndex < 0) novoIndex += 12; // Corrige índice negativo
+
+  // Se estiver subindo (>0) ou no 0, usa sustenidos. Se estiver descendo (<0), usa bemóis
+  return semitonsAdicionados >= 0 ? escalaSubindo[novoIndex] : escalaDescendo[novoIndex];
+}
+
+// Atualiza a interface do Tom
+function updateTomUI() {
+  const st = parseInt(tomSlider.value, 10);
+  const sinal = st > 0 ? '+' : '';
+  tomDisplay.textContent = `${sinal}${st} st`;
+
+  // Atualiza a visualização do Slider (a "trilha" azulzinha)
+  const pct = ((st + 5) / 11) * 100; // Matemática para um range de -5 a 6
+  tomSlider.style.setProperty('--value', `${pct}%`);
+  tomSlider.style.background = 'transparent';
+
+  // Atualiza a cifra na tela se houver música selecionada e tom cadastrado
+  if (selectedSong && selectedSong.tom) {
+    tomCifra.textContent = calcularNovaCifra(selectedSong.tom, st);
+  } else {
+    tomCifra.textContent = '-';
+  }
+}
+
+// Ouve as mudanças no Slider de Tom
+tomSlider.addEventListener('input', (e) => {
+  updateTomUI();
+  // Chama a função que altera o tom de verdade no áudio
+  setTom(parseInt(e.target.value, 10)); 
+});
+// ---------------------------------------------------
+
+// --- LÓGICA DE HISTÓRICO (ÚLTIMAS TOCADAS) ---
 function getHistoryIds() {
   try {
     const hist = localStorage.getItem('ensaio_history');
@@ -41,29 +94,23 @@ function getHistoryIds() {
   } catch(e) { return []; }
 }
 
-// Salva a música clicada na memória
 function saveToHistory(id) {
   let hist = getHistoryIds();
-  hist = hist.filter(hId => hId !== id); // Remove se já estiver na lista (para jogar pro topo)
-  hist.unshift(id); // Adiciona no topo
-  if (hist.length > 3) hist.pop(); // Mantém apenas as 3 últimas
+  hist = hist.filter(hId => hId !== id); 
+  hist.unshift(id); 
+  if (hist.length > 3) hist.pop(); 
   localStorage.setItem('ensaio_history', JSON.stringify(hist));
 }
 
-// Decide o que mostrar quando a barra de busca está vazia
 function getDefaultList() {
   const histIds = getHistoryIds();
   if (histIds.length > 0) {
-    // Transforma os IDs salvos nas informações reais da música
     return histIds.map(id => SONGS.find(s => s.id === id)).filter(Boolean);
   }
-  // Se for a primeira vez da pessoa no app, mostra as 3 primeiras do catálogo
   return SONGS.slice(0, 3);
 }
-// ---------------------------------------------------
 
 function renderList(items) {
-  // 1. Filtra a lista recebida para ignorar as músicas inativas
   items = items.filter(musica => musica.ativo !== false);
 
   songListEl.innerHTML = '';
@@ -72,7 +119,6 @@ function renderList(items) {
     return;
   }
   
-  // Limita a exibição visual a 3 itens e adiciona uma tag se for do histórico
   const isSearchEmpty = songSearchEl.value.trim() === '';
   const itensParaMostrar = items.slice(0, 3);
 
@@ -91,7 +137,6 @@ function renderList(items) {
     li.textContent = `${s.title} — ${s.artist || 'Desconhecido'}`;
     li.tabIndex = 0;
     
-    // ATUALIZADO AQUI: Seleciona a música e força o play automático
     li.addEventListener('click', () => { 
       applySong(s.id); 
       forcePlay(); 
@@ -118,7 +163,6 @@ function applySong(id) {
   if (!s) return;
   selectedSong = s;
   
-  // Salva no histórico toda vez que uma música é selecionada
   saveToHistory(id);
 
   songTitleEl.textContent = s.title || '—';
@@ -130,6 +174,12 @@ function applySong(id) {
   bpmHiddenEl.value = s.bpm || 120;
   tsHiddenEl.value  = beats;
   offsetEl.value    = s.offset || 0.00;
+
+  // --- NOVO: Zera o tom quando troca de música ---
+  tomSlider.value = 0;
+  updateTomUI();
+  setTom(0);
+  // ----------------------------------------------
 
   const items = Array.from(songListEl.children);
   items.forEach(li => li.classList.remove('selected'));
@@ -148,26 +198,19 @@ function updateProgress() {
   const duration = getDuration();
 
   if (duration > 0 && !isDragging) {
-    
-    // --- NOVO: LÓGICA DE REPETIÇÃO (LOOP) ---
-    // Se o tempo atual estiver a um triz de acabar (margem de 0.05s de segurança)
     if (current >= duration - 0.05) {
-      seekTo(0, selectedSong); // Rebobina a música e o metrônomo para o início (0%)
+      seekTo(0, selectedSong); 
     } else {
-      // Atualiza a barra de progresso normalmente
       currentTimeDisplay.textContent = formatTime(current);
       durationDisplay.textContent = formatTime(duration);
       const percentage = (current / duration) * 100;
       progressBar.value = percentage;
       progressBar.style.setProperty('--value', `${percentage}%`);
     }
-    // ----------------------------------------
-    
   }
   animationFrameId = requestAnimationFrame(updateProgress);
 }
 
-// LÓGICA DE ARRASTAR A BARRA (SEEK)
 progressBar.addEventListener('input', (e) => {
   isDragging = true;
   const percentage = e.target.value;
@@ -183,18 +226,15 @@ progressBar.addEventListener('change', (e) => {
   }
 });
 
-// NOVO: Função que força o play automático quando clica na lista
 async function forcePlay() {
   stopAll(); 
   isPaused = false;
   
-  // Zera a barra de progresso visualmente antes de tocar a nova
   if (animationFrameId) cancelAnimationFrame(animationFrameId);
   progressBar.value = 0;
   progressBar.style.setProperty('--value', '0%');
   currentTimeDisplay.textContent = '0:00';
 
-  // Muda o botão para "Carregando"
   playBtn.disabled = true; 
   playBtn.textContent = 'Carregando...';
 
@@ -204,14 +244,13 @@ async function forcePlay() {
     setVozVolume(parseFloat(vozVol.value));
     setPlaybackVolume(parseFloat(playbackVol.value));
     setMetroVolume(parseFloat(metroVol.value));
+    setTom(parseInt(tomSlider.value, 10)); // <-- NOVO: Aplica o tom ao dar play
 
     updateProgress();
     
-    // Atualiza o botão para "Pause" após carregar com sucesso
     playBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="white" aria-hidden="true" style="margin-right:8px"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path></svg> Pause`;
   } catch (err) {
     console.error("Erro ao carregar áudio:", err);
-    // Devolve o botão de "Play" se der erro
     playBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="white" aria-hidden="true" style="margin-right:8px"><path d="M8 5v14l11-7z"></path></svg> Play`;
   } finally {
     playBtn.disabled = false;
@@ -246,6 +285,7 @@ playBtn.addEventListener('click', async () => {
     setVozVolume(parseFloat(vozVol.value));
     setPlaybackVolume(parseFloat(playbackVol.value));
     setMetroVolume(parseFloat(metroVol.value));
+    setTom(parseInt(tomSlider.value, 10)); // <-- NOVO: Aplica o tom ao dar play
 
     if (animationFrameId) cancelAnimationFrame(animationFrameId);
     updateProgress();
@@ -287,6 +327,9 @@ function syncAll(){
 vozVol.addEventListener('input', (e) => { setVozVolume(+e.target.value); syncAll(); });
 playbackVol.addEventListener('input', (e) => { setPlaybackVolume(+e.target.value); syncAll(); });
 metroVol.addEventListener('input', (e) => { setMetroVolume(+e.target.value); syncAll(); });
+
+// Inicializa a interface do Tom logo de cara
+updateTomUI();
 syncAll();
 
 songSearchEl.addEventListener('input', () => {

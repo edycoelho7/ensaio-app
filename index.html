@@ -64,7 +64,20 @@
 
     <!-- MIXER (3 faixas) -->
     <section class="card">
-      <!-- VOZ -->
+      <div class="row" style="margin-bottom: 24px;">
+        <div class="row-head">
+          <label class="lbl">Tom</label>
+          <div style="text-align: right;">
+            <span id="tomCifra" style="color: #00d2ff; font-weight: bold; margin-right: 10px;">-</span>
+            <span id="tomDisplay" class="muted">0 st</span>
+          </div>
+        </div>
+        <input id="tomSlider" class="slider" type="range" min="-5" max="6" step="1" value="0" />
+        <div style="display: flex; justify-content: space-between; padding: 0 2px; margin-top: 6px; font-size: 11px; color: #6b7280; font-family: monospace;">
+          <span>-5</span><span>-4</span><span>-3</span><span>-2</span><span>-1</span><span> 0</span><span>+1</span><span>+2</span><span>+3</span><span>+4</span><span>+5</span><span>+6</span>
+        </div>
+      </div>
+
       <div class="row">
         <div class="row-head">
           <label class="lbl">Voz</label>
@@ -73,7 +86,6 @@
         <input id="vozVol" class="slider" type="range" min="0" max="1" step="0.01" value="0.7" />
       </div>
 
-      <!-- PLAYBACK -->
       <div class="row">
         <div class="row-head">
           <label class="lbl">Playback</label>
@@ -82,7 +94,6 @@
         <input id="playbackVol" class="slider" type="range" min="0" max="1" step="0.01" value="0.8" />
       </div>
 
-      <!-- METRÔNOMO -->
       <div class="row">
         <div class="row-head">
           <label class="lbl">Metrônomo</label>
@@ -102,6 +113,8 @@
     <small>EBNZ • App de Ensaio — v1 (HTML/JS puro)</small>
   </footer>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+  
   <script type="module" src="app/app.js"></script>
 </body>
 </html>

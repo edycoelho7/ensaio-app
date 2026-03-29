@@ -1,6 +1,9 @@
 // app/audio-engine.js
 let audioCtx;
 let masterGain, vozGain, playbackGain, metroGain;
+let pitchShift; 
+let currentTom = 0; 
+
 let isPlaying = false;
 let schedulerTimerId = null;
 let currentNoteTime = 0;
@@ -12,7 +15,6 @@ let startTime = 0;
 let vozSource = null;
 let playbackSource = null;
 
-// Buffers em Cache
 let currentSongId = null;
 let cachedVozBuf = null;
 let cachedPlaybackBuf = null;
@@ -24,18 +26,28 @@ const lookahead = 25;
 
 function initAudioGraph() {
   if (audioCtx) return;
-  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+  audioCtx = Tone.context.rawContext;
 
   masterGain = audioCtx.createGain();
   masterGain.gain.value = 1.0;
   masterGain.connect(audioCtx.destination);
 
+ // Configuração avançada do PitchShift para evitar a "voz duplicada" (eco)
+  pitchShift = new Tone.PitchShift({ 
+      pitch: currentTom,
+      windowSize: 0.06, 
+      wet: 1
+  });
+  Tone.connect(pitchShift, masterGain);
+
   vozGain = audioCtx.createGain();
   playbackGain = audioCtx.createGain();
   metroGain = audioCtx.createGain();
 
-  vozGain.connect(masterGain);
-  playbackGain.connect(masterGain);
+  Tone.connect(vozGain, pitchShift);
+  Tone.connect(playbackGain, pitchShift);
+  
   metroGain.connect(masterGain);
 }
 
@@ -53,7 +65,6 @@ function connectAndStartBuffer(buffer, when, gainNode, offset = 0) {
   return src;
 }
 
-// Previne erro matemático caso o BPM falhe
 function secondsPerBeat(bpm) { return 60.0 / (Number(bpm) || 120); }
 
 function scheduleClick(time, isAccent) {
@@ -64,14 +75,12 @@ function scheduleClick(time, isAccent) {
   src.start(time);
 }
 
-// CORREÇÃO 1: Adicionada tolerância para o JavaScript não se perder nos decimais
 function getSegmentAtTime(song, timeInSong) {
   let activeSegment = { time: 0, bpm: Number(song.bpm) || 120 };
   let nextSegment = null;
 
   if (song.bpmMap && song.bpmMap.length > 0) {
     for (let i = 0; i < song.bpmMap.length; i++) {
-      // O "+ 0.01" é a mágica que impede o erro de precisão flutuante
       if (timeInSong + 0.01 >= song.bpmMap[i].time) {
         activeSegment = song.bpmMap[i];
         nextSegment = song.bpmMap[i + 1] || null;
@@ -83,12 +92,10 @@ function getSegmentAtTime(song, timeInSong) {
   return { activeSegment, nextSegment };
 }
 
-// CORREÇÃO 2: Trava de segurança para impedir o congelamento da tela
 function scheduler(song, beatsPerBar) {
-  let loopSafety = 0; // Inicia o contador de segurança
+  let loopSafety = 0; 
 
   while (currentNoteTime < audioCtx.currentTime + scheduleAheadTime) {
-    // Se o JS tentar bugar e repetir rápido demais, nós quebramos o ciclo na marra
     if (loopSafety++ > 50) break; 
 
     const isAccent = (currentBeatInBar % beatsPerBar === 0);
@@ -113,12 +120,11 @@ function scheduler(song, beatsPerBar) {
   }
 }
 
-// API Principal
 export async function startAll(song) {
   if (isPlaying) return;
+  
+  await Tone.start();
   initAudioGraph();
-
-  if (audioCtx.state === 'suspended') await audioCtx.resume();
 
   if (currentSongId !== song.id) {
     const baseUrl = "https://res.cloudinary.com/dahzww1gv/video/upload/v1/";
@@ -145,9 +151,6 @@ export async function startAll(song) {
   startTime = startAt;
 
   const beatsPerBar = parseInt(String(song.timeSignature).split('/')[0], 10) || 4;
-  
-  // Não precisamos pegar o BPM principal aqui, o loop se vira
-
   const offset = Number(song.offset) || 0;
 
   vozSource = connectAndStartBuffer(cachedVozBuf, startAt, vozGain);
@@ -198,6 +201,8 @@ export function seekTo(percent, song) {
 
 export async function togglePause() {
   if (!audioCtx) return "stopped";
+  
+  // Voltamos a usar o audioCtx nativo para pausar o sistema com precisão
   if (audioCtx.state === 'running') {
     await audioCtx.suspend(); 
     return "paused";
@@ -213,15 +218,19 @@ export function stopAll() {
   try { vozSource && vozSource.stop(); } catch(e) {}
   try { playbackSource && playbackSource.stop(); } catch(e) {}
   vozSource = null; playbackSource = null;
-  audioCtx.close();
-  audioCtx = null;
   isPlaying = false;
-  currentSongId = null; 
 }
 
 export function setVozVolume(v){ if (vozGain) vozGain.gain.value = v; }
 export function setPlaybackVolume(v){ if (playbackGain) playbackGain.gain.value = v; }
 export function setMetroVolume(v){ if (metroGain) metroGain.gain.value = v; }
+
+export function setTom(semitons) {
+  currentTom = semitons;
+  if (pitchShift) {
+    pitchShift.pitch = semitons;
+  }
+}
 
 export function getDuration() { return songDuration; }
 export function getCurrentTime() {
