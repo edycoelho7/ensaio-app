@@ -9,16 +9,48 @@
   <meta name="theme-color" content="#030814">
 </head>
 <body>
-  <header class="topbar">
+  <header class="topbar" style="display: flex; justify-content: space-between; align-items: center;">
     <div class="brand">
-      <!-- Logo EBNZ (círculo) -->
       <img class="logo-ebnz" src="ebnz.png" alt="Logo da Igreja" style="width: 40px; height: 40px; object-fit: contain;">
       <h1>Ensaio Ebenezer Ipe</h1>
     </div>
+
+    <div class="auth-area" style="display: flex; align-items: center; gap: 15px;">
+      <button id="loginBtn" class="btn primary" style="padding: 6px 12px; font-size: 14px;">Entrar</button>
+      
+      <div id="userProfile" style="display: none; align-items: center; gap: 10px;">
+        <img id="userPic" src="" alt="Foto" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 2px solid #00d2ff;">
+        <button id="logoutBtn" class="btn" style="padding: 6px 12px; font-size: 14px;">Sair</button>
+      </div>
+    </div>
   </header>
 
-  <main class="container">
-    <!-- BUSCA + LISTA -->
+  <div id="tela-login" class="container">
+    <section class="card" style="text-align: center; padding: 40px 20px; max-width: 400px; margin: 0 auto;">
+      <h2 style="margin-bottom: 10px;">Bem-vindo ao Ensaio Ebenezer Ipe</h2>
+      <p class="muted" style="margin-bottom: 30px;">Faça o login para acessar o repertório.</p>
+      
+      <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;">
+        <input id="emailInput" type="email" placeholder="Seu e-mail" style="padding: 12px; border-radius: 6px; border: 1px solid #333; background: #1a1a1a; color: #fff; width: 100%; box-sizing: border-box;" />
+        <input id="senhaInput" type="password" placeholder="Sua senha" style="padding: 12px; border-radius: 6px; border: 1px solid #333; background: #1a1a1a; color: #fff; width: 100%; box-sizing: border-box;" />
+        
+        <div style="display: flex; gap: 10px; justify-content: center; margin-top: 10px;">
+          <button id="btnEntrarEmail" class="btn primary" style="flex: 1;">Entrar</button>
+          <button id="btnCriarConta" class="btn" style="flex: 1;">Criar Conta</button>
+        </div>
+
+        <a id="btnEsqueciSenha" href="#" style="color: #00d2ff; font-size: 14px; text-decoration: none; margin-top: 15px; display: inline-block; text-align: center;">Esqueci minha senha</a>
+      </div>
+
+      <hr class="divider" style="margin: 24px 0;" />
+
+      <button id="bigLoginBtn" class="btn" style="padding: 10px 24px; font-size: 16px; width: 100%; background: #ffffff; color: #000000; font-weight: bold;">
+        Entrar com Google
+      </button>
+    </section>
+  </div>
+  <main id="tela-principal" class="container" style="display: none;">
+    
     <section class="card">
       <label for="songSearch" class="lbl">Buscar música</label>
       <input id="songSearch" type="text" placeholder="Digite parte do nome ou artista…" />
@@ -26,7 +58,6 @@
       <hr class="divider" />
     </section>
 
-    <!-- DETALHES DA MÚSICA (sem texto 'Música selecionada') -->
     <section class="card">
       <div class="grid2">
         <div>
@@ -54,15 +85,14 @@
           Play
         </button>
         <button id="stopBtn" class="btn">
-  	<svg width="14" height="14" viewBox="0 0 24 24" fill="white" aria-hidden="true" style="margin-right:6px">
-    	<path d="M6 6h12v12H6z"></path>
-  	</svg>
- 	 Stop
-	</button>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="white" aria-hidden="true" style="margin-right:6px">
+      <path d="M6 6h12v12H6z"></path>
+    </svg>
+   Stop
+  </button>
       </div>
     </section>
 
-    <!-- MIXER (3 faixas) -->
     <section class="card">
       <div class="row" style="margin-bottom: 24px;">
         <div class="row-head">
@@ -103,7 +133,6 @@
       </div>
     </section>
 
-    <!-- CAMPOS PARA O MOTOR (internos, não editáveis) -->
     <input id="bpm" type="hidden" value="120" />
     <input id="timeSig" type="hidden" value="4" />
     <input id="offset" type="hidden" value="0.00" />

@@ -1,3 +1,143 @@
+// ==========================================
+// 1. IMPORTAÇÃO DO FIREBASE (AUTH E ANALYTICS)
+// ==========================================
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-analytics.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+// ==========================================
+// 2. SUAS CHAVES DO FIREBASE
+// ==========================================
+// Substitua as chaves abaixo pelo código gerado no Firebase Console
+const firebaseConfig = {
+  apiKey: "AIzaSyBHU5yLgdM0UczPoR7PU_zzSQ_i6UdyFb4",
+  authDomain: "ebenezeripe-58e27.firebaseapp.com",
+  projectId: "ebenezeripe-58e27",
+  storageBucket: "ebenezeripe-58e27.firebasestorage.app",
+  messagingSenderId: "482641495246",
+  appId: "1:482641495246:web:c2fb06bfcd9e3129c67c9f",
+  measurementId: "G-42V85Z4V4L"
+};
+
+// ==========================================
+// 3. INICIALIZANDO AS FERRAMENTAS
+// ==========================================
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app); 
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+
+// ==========================================
+// 4. LÓGICA DE LOGIN E CONTROLE DE TELA
+// ==========================================
+// Elementos do header
+const loginBtn = document.getElementById('loginBtn');
+const logoutBtn = document.getElementById('logoutBtn');
+const userProfile = document.getElementById('userProfile');
+const userPic = document.getElementById('userPic');
+
+// Elementos da tela de login
+const telaLogin = document.getElementById('tela-login');
+const telaPrincipal = document.getElementById('tela-principal');
+const bigLoginBtn = document.getElementById('bigLoginBtn'); 
+const emailInput = document.getElementById('emailInput');
+const senhaInput = document.getElementById('senhaInput');
+const btnEntrarEmail = document.getElementById('btnEntrarEmail');
+const btnCriarConta = document.getElementById('btnCriarConta');
+const btnEsqueciSenha = document.getElementById('btnEsqueciSenha'); // <--- ADICIONE ESTA LINHA
+
+// Login com Google
+const loginGoogle = () => {
+  signInWithPopup(auth, provider).catch(error => {
+    console.error("Erro no login com Google:", error);
+    alert("Erro ao fazer login com o Google.");
+  });
+};
+
+if (loginBtn) loginBtn.addEventListener('click', loginGoogle);
+if (bigLoginBtn) bigLoginBtn.addEventListener('click', loginGoogle);
+
+// Entrar com E-mail e Senha
+if (btnEntrarEmail) {
+  btnEntrarEmail.addEventListener('click', () => {
+    const email = emailInput.value;
+    const senha = senhaInput.value;
+    if (!email || !senha) return alert("Preencha e-mail e senha!");
+    
+    signInWithEmailAndPassword(auth, email, senha)
+      .catch(error => alert("Erro ao entrar. Verifique seu e-mail e senha."));
+  });
+}
+
+// Criar Conta com E-mail e Senha
+if (btnCriarConta) {
+  btnCriarConta.addEventListener('click', () => {
+    const email = emailInput.value;
+    const senha = senhaInput.value;
+    if (!email || !senha) return alert("Preencha e-mail e senha para criar a conta!");
+    if (senha.length < 6) return alert("A senha deve ter pelo menos 6 caracteres.");
+
+    createUserWithEmailAndPassword(auth, email, senha)
+      .then(() => alert("Conta criada com sucesso!"))
+      .catch(error => alert("Erro ao criar conta: " + error.message));
+  });
+}
+
+// Esqueci a Senha (Recuperação)
+if (btnEsqueciSenha) {
+  btnEsqueciSenha.addEventListener('click', (e) => {
+    e.preventDefault(); // Evita que a página recarregue ao clicar no link
+    
+    const email = emailInput.value;
+    
+    // Verifica se a pessoa digitou o e-mail antes de clicar
+    if (!email) {
+      return alert("Por favor, digite seu e-mail na caixinha acima e clique em 'Esqueci minha senha' novamente.");
+    }
+
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        alert("E-mail de recuperação enviado! Verifique sua caixa de entrada (e o spam).");
+      })
+      .catch((error) => {
+        console.error("Erro ao enviar e-mail:", error);
+        alert("Erro ao enviar o e-mail. Verifique se o endereço está correto.");
+      });
+  });
+}
+
+// Função de Logout
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', () => {
+    signOut(auth).catch(error => console.error("Erro ao sair:", error));
+  });
+}
+
+// Observador de Estado (Controla as telas)
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // ESTÁ LOGADO
+    if (loginBtn) loginBtn.style.display = 'none';
+    if (userProfile) userProfile.style.display = 'flex';
+    // Se logou com e-mail, pode não ter foto, então usamos uma genérica
+    if (userPic) userPic.src = user.photoURL || 'https://cdn-icons-png.flaticon.com/512/149/149071.png';
+    
+    if (telaLogin) telaLogin.style.display = 'none';
+    if (telaPrincipal) telaPrincipal.style.display = 'block';
+  } else {
+    // NÃO ESTÁ LOGADO
+    if (loginBtn) loginBtn.style.display = 'block';
+    if (userProfile) userProfile.style.display = 'none';
+    
+    if (telaPrincipal) telaPrincipal.style.display = 'none';
+    if (telaLogin) telaLogin.style.display = 'block';
+  }
+});
+// ==========================================
+// FIM DO BLOCO DO FIREBASE
+// ==========================================
+
+// --- SEU CÓDIGO ORIGINAL COMEÇA AQUI EMBAIXO ---
+
 // app/app.js
 // --- NOVO: Importando a função setTom do audio-engine ---
 import { SONGS } from '../songs.js';
