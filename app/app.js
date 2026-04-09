@@ -321,6 +321,25 @@ function applySong(id) {
   setTom(0);
   // ----------------------------------------------
 
+  // === NOVO: BLOQUEIO DO METRÔNOMO PARA MÚSICAS ESPECÍFICAS ===
+  // Se a música não tiver o link do metrônomo lá no seu arquivo songs.js
+  // (Ajuste "s.urlMetronomo" para o nome exato da propriedade que você usou lá)
+  if (!s.urlMetronomo) { 
+    metroVol.disabled = true;
+    metroVol.value = 0;
+    metroPct.textContent = "0%";
+    metroVol.parentElement.style.opacity = "0.4"; // Deixa a linha visualmente apagada
+    setMetroVolume(0); // Garante que o volume fique mudo no audio-engine
+  } else {
+    metroVol.disabled = false;
+    metroVol.value = 0.5; // Retorna ao padrão (50%)
+    metroPct.textContent = "50%";
+    metroVol.parentElement.style.opacity = "1";
+    setMetroVolume(0.5); 
+  }
+  setFill(metroVol); // Sincroniza a barrinha azul
+  // ============================================================
+
   const items = Array.from(songListEl.children);
   items.forEach(li => li.classList.remove('selected'));
   const found = items.find(li => li.textContent.includes(s.title));
