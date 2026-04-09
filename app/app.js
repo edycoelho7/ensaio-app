@@ -322,19 +322,18 @@ function applySong(id) {
   // ----------------------------------------------
 
   // === NOVO: BLOQUEIO DO METRÔNOMO PARA MÚSICAS ESPECÍFICAS ===
-  // Se a música não tiver o link do metrônomo lá no seu arquivo songs.js
-  // (Ajuste "s.urlMetronomo" para o nome exato da propriedade que você usou lá)
-  if (!s.urlMetronomo) { 
+  // Agora o sistema procura exatamente a palavra "ocultarMetronomo" que você colocou lá!
+  if (s.ocultarMetronomo) { 
     metroVol.disabled = true;
     metroVol.value = 0;
     metroPct.textContent = "0%";
     metroVol.parentElement.style.opacity = "0.4"; // Deixa a linha visualmente apagada
-    setMetroVolume(0); // Garante que o volume fique mudo no audio-engine
+    setMetroVolume(0); // Garante que o volume fique mudo
   } else {
     metroVol.disabled = false;
-    metroVol.value = 0.5; // Retorna ao padrão (50%)
+    metroVol.value = 0.5; // Retorna ao padrão (50%) para as outras músicas
     metroPct.textContent = "50%";
-    metroVol.parentElement.style.opacity = "1";
+    metroVol.parentElement.style.opacity = "1"; // Volta ao normal
     setMetroVolume(0.5); 
   }
   setFill(metroVol); // Sincroniza a barrinha azul
