@@ -136,9 +136,9 @@ onAuthStateChanged(auth, (user) => {
 // --- SEU CÓDIGO ORIGINAL COMEÇA AQUI EMBAIXO ---
 
 // app/app.js
-import { SONGS } from '../songs.js';
-// ATENÇÃO AQUI: Adicionei o 'unlockAudio' no final desta lista de importação
-import { startAll, stopAll, togglePause, seekTo, setVozVolume, setPlaybackVolume, setMetroVolume, setTom, getDuration, getCurrentTime, unlockAudio } from './audio-engine.js';
+// --- AQUI ESTÁ O CACHE BUSTING CORRIGIDO NAS IMPORTAÇÕES ---
+import { SONGS } from '../songs.js?v=1.1';
+import { startAll, stopAll, togglePause, seekTo, setVozVolume, setPlaybackVolume, setMetroVolume, setTom, getDuration, getCurrentTime, unlockAudio } from './audio-engine.js?v=1.1';
 
 const songListEl   = document.getElementById('songList');
 const songSearchEl = document.getElementById('songSearch');

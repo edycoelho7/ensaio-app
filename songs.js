@@ -18,4 +18,15 @@ export const SONGS = [
   },
   { id: "4", title: "You Are Good", artist: "Israel Houghton", bpm: 130, timeSignature: "4/4", offset: 1.41, tom: "E" }, // <-- Adicionado
   { id: "5", title: "Um novo dia", artist: "Get Worship", bpm: 151, timeSignature: "3/4", offset: 2.50, tom: "F#" },
+  { id: "6", title: "Tudo é Pra Tua Glória (ao vivo)", artist: "Dunamis", bpm: 142, timeSignature: "4/4", offset: 1.90, tom: "A", bpmMap:[
+    { time: 0, bpm: 142 },         // Início da música (considerando o offset de 1.95)
+    { time: 273.500, bpm: 138 },    // Ponto onde o metrônomo zera e recomeça aos 41.951s
+    { time: 286.500, bpm: 138 },
+    { time: 292.500, bpm: 1 }   
+  ]
+},
+  { id: "7", title: "Digno de Tudo + Te Exaltamos", artist: "Felipe Rodrigues", bpm: 136, timeSignature: "4/4", offset: 1.42, tom: "C" },
+  { id: "8", title: "Jesus Filho de Deus + Nada Além do Sangue (Ao-Vivo)", artist: "Pedro Bertoldo", bpm: 132, timeSignature: "4/4", offset: 22.00, tom: "E", 
+    ocultarMetronomo: true // <-- Adicionado aqui para desativar o metrônomo 
+    },
 ];
