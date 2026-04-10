@@ -29,5 +29,4 @@ export const SONGS = [
   { id: "8", title: "Jesus Filho de Deus + Nada Além do Sangue (Ao-Vivo)", artist: "Pedro Bertoldo", bpm: 132, timeSignature: "4/4", offset: 22.00, tom: "E", 
     ocultarMetronomo: true // <-- Adicionado aqui para desativar o metrônomo 
     },
-    { id: "155", title: "xxxxx", artist: "xxxxxxx", bpm: 136, timeSignature: "4/4", offset: 1.42, tom: "C" },
 ];
