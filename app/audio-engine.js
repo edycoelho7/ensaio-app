@@ -202,7 +202,6 @@ export function seekTo(percent, song) {
 export async function togglePause() {
   if (!audioCtx) return "stopped";
   
-  // Voltamos a usar o audioCtx nativo para pausar o sistema com precisão
   if (audioCtx.state === 'running') {
     await audioCtx.suspend(); 
     return "paused";
@@ -237,4 +236,19 @@ export function getCurrentTime() {
   if (!isPlaying || !audioCtx) return 0;
   const now = audioCtx.currentTime - startTime;
   return Math.max(0, Math.min(now, songDuration));
+}
+
+// ==========================================
+// A PONTE PARA O IPHONE: Desbloqueio de Áudio
+// ==========================================
+export function unlockAudio() {
+  // 1. Força a inicialização do Tone.js instantaneamente no clique
+  if (typeof Tone !== 'undefined') {
+      Tone.start();
+  }
+  
+  // 2. Garante que o contexto nativo também acorde, caso já tenha sido criado
+  if (audioCtx && audioCtx.state === 'suspended') {
+      audioCtx.resume();
+  }
 }

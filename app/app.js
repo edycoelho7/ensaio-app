@@ -4,6 +4,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-analytics.js";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
 // ==========================================
 // 2. SUAS CHAVES DO FIREBASE
 // ==========================================
@@ -43,7 +44,7 @@ const emailInput = document.getElementById('emailInput');
 const senhaInput = document.getElementById('senhaInput');
 const btnEntrarEmail = document.getElementById('btnEntrarEmail');
 const btnCriarConta = document.getElementById('btnCriarConta');
-const btnEsqueciSenha = document.getElementById('btnEsqueciSenha'); // <--- ADICIONE ESTA LINHA
+const btnEsqueciSenha = document.getElementById('btnEsqueciSenha');
 
 // Login com Google
 const loginGoogle = () => {
@@ -85,11 +86,10 @@ if (btnCriarConta) {
 // Esqueci a Senha (Recuperação)
 if (btnEsqueciSenha) {
   btnEsqueciSenha.addEventListener('click', (e) => {
-    e.preventDefault(); // Evita que a página recarregue ao clicar no link
+    e.preventDefault(); 
     
     const email = emailInput.value;
     
-    // Verifica se a pessoa digitou o e-mail antes de clicar
     if (!email) {
       return alert("Por favor, digite seu e-mail na caixinha acima e clique em 'Esqueci minha senha' novamente.");
     }
@@ -115,16 +115,13 @@ if (logoutBtn) {
 // Observador de Estado (Controla as telas)
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    // ESTÁ LOGADO
     if (loginBtn) loginBtn.style.display = 'none';
     if (userProfile) userProfile.style.display = 'flex';
-    // Se logou com e-mail, pode não ter foto, então usamos uma genérica
     if (userPic) userPic.src = user.photoURL || 'https://cdn-icons-png.flaticon.com/512/149/149071.png';
     
     if (telaLogin) telaLogin.style.display = 'none';
     if (telaPrincipal) telaPrincipal.style.display = 'block';
   } else {
-    // NÃO ESTÁ LOGADO
     if (loginBtn) loginBtn.style.display = 'block';
     if (userProfile) userProfile.style.display = 'none';
     
@@ -139,9 +136,9 @@ onAuthStateChanged(auth, (user) => {
 // --- SEU CÓDIGO ORIGINAL COMEÇA AQUI EMBAIXO ---
 
 // app/app.js
-// --- NOVO: Importando a função setTom do audio-engine ---
 import { SONGS } from '../songs.js';
-import { startAll, stopAll, togglePause, seekTo, setVozVolume, setPlaybackVolume, setMetroVolume, setTom, getDuration, getCurrentTime } from './audio-engine.js';
+// ATENÇÃO AQUI: Adicionei o 'unlockAudio' no final desta lista de importação
+import { startAll, stopAll, togglePause, seekTo, setVozVolume, setPlaybackVolume, setMetroVolume, setTom, getDuration, getCurrentTime, unlockAudio } from './audio-engine.js';
 
 const songListEl   = document.getElementById('songList');
 const songSearchEl = document.getElementById('songSearch');
@@ -163,7 +160,6 @@ const vozPct = document.getElementById('vozPct');
 const playbackPct = document.getElementById('playbackPct');
 const metroPct = document.getElementById('metroPct');
 
-// --- NOVO: Elementos do Tom ---
 const tomSlider = document.getElementById('tomSlider');
 const tomDisplay = document.getElementById('tomDisplay');
 const tomCifra = document.getElementById('tomCifra');
@@ -177,40 +173,32 @@ let animationFrameId = null;
 let isPaused = false;
 let isDragging = false; 
 
-// --- NOVO: LÓGICA DE ESCALA MUSICAL PARA O TOM ---
-// Escala com sustenidos (usada quando sobe o tom)
+// LÓGICA DE ESCALA MUSICAL PARA O TOM
 const escalaSubindo = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-// Escala com bemóis (usada quando desce o tom)
 const escalaDescendo = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
 
 function calcularNovaCifra(tomOriginal, semitonsAdicionados) {
   if (!tomOriginal || tomOriginal === '-') return '-';
 
-  // Normaliza o tom original para encontrar na escala (trata C# igual a Db para facilitar)
   let index = escalaSubindo.indexOf(tomOriginal);
   if (index === -1) index = escalaDescendo.indexOf(tomOriginal);
-  if (index === -1) return tomOriginal; // Se por acaso não achar, retorna o que estava
+  if (index === -1) return tomOriginal; 
 
-  // Calcula o novo índice rodando a lista (módulo 12)
   let novoIndex = (index + semitonsAdicionados) % 12;
-  if (novoIndex < 0) novoIndex += 12; // Corrige índice negativo
+  if (novoIndex < 0) novoIndex += 12; 
 
-  // Se estiver subindo (>0) ou no 0, usa sustenidos. Se estiver descendo (<0), usa bemóis
   return semitonsAdicionados >= 0 ? escalaSubindo[novoIndex] : escalaDescendo[novoIndex];
 }
 
-// Atualiza a interface do Tom
 function updateTomUI() {
   const st = parseInt(tomSlider.value, 10);
   const sinal = st > 0 ? '+' : '';
   tomDisplay.textContent = `${sinal}${st} st`;
 
-  // Atualiza a visualização do Slider (a "trilha" azulzinha)
-  const pct = ((st + 5) / 11) * 100; // Matemática para um range de -5 a 6
+  const pct = ((st + 5) / 11) * 100; 
   tomSlider.style.setProperty('--value', `${pct}%`);
   tomSlider.style.background = 'transparent';
 
-  // Atualiza a cifra na tela se houver música selecionada e tom cadastrado
   if (selectedSong && selectedSong.tom) {
     tomCifra.textContent = calcularNovaCifra(selectedSong.tom, st);
   } else {
@@ -218,15 +206,11 @@ function updateTomUI() {
   }
 }
 
-// Ouve as mudanças no Slider de Tom
 tomSlider.addEventListener('input', (e) => {
   updateTomUI();
-  // Chama a função que altera o tom de verdade no áudio
   setTom(parseInt(e.target.value, 10)); 
 });
-// ---------------------------------------------------
 
-// --- LÓGICA DE HISTÓRICO (ÚLTIMAS TOCADAS) ---
 function getHistoryIds() {
   try {
     const hist = localStorage.getItem('ensaio_history');
@@ -315,29 +299,24 @@ function applySong(id) {
   tsHiddenEl.value  = beats;
   offsetEl.value    = s.offset || 0.00;
 
-  // --- NOVO: Zera o tom quando troca de música ---
   tomSlider.value = 0;
   updateTomUI();
   setTom(0);
-  // ----------------------------------------------
 
-  // === NOVO: BLOQUEIO DO METRÔNOMO PARA MÚSICAS ESPECÍFICAS ===
-  // Agora o sistema procura exatamente a palavra "ocultarMetronomo" que você colocou lá!
   if (s.ocultarMetronomo) { 
     metroVol.disabled = true;
     metroVol.value = 0;
     metroPct.textContent = "0%";
-    metroVol.parentElement.style.opacity = "0.4"; // Deixa a linha visualmente apagada
-    setMetroVolume(0); // Garante que o volume fique mudo
+    metroVol.parentElement.style.opacity = "0.4"; 
+    setMetroVolume(0); 
   } else {
     metroVol.disabled = false;
-    metroVol.value = 0.5; // Retorna ao padrão (50%) para as outras músicas
+    metroVol.value = 0.5; 
     metroPct.textContent = "50%";
-    metroVol.parentElement.style.opacity = "1"; // Volta ao normal
+    metroVol.parentElement.style.opacity = "1"; 
     setMetroVolume(0.5); 
   }
-  setFill(metroVol); // Sincroniza a barrinha azul
-  // ============================================================
+  setFill(metroVol); 
 
   const items = Array.from(songListEl.children);
   items.forEach(li => li.classList.remove('selected'));
@@ -385,6 +364,9 @@ progressBar.addEventListener('change', (e) => {
 });
 
 async function forcePlay() {
+  // --- O PULO DO GATO PARA O IPHONE AQUI: Acorda o áudio ao clicar na lista ---
+  if (typeof unlockAudio === 'function') unlockAudio();
+
   stopAll(); 
   isPaused = false;
   
@@ -402,7 +384,7 @@ async function forcePlay() {
     setVozVolume(parseFloat(vozVol.value));
     setPlaybackVolume(parseFloat(playbackVol.value));
     setMetroVolume(parseFloat(metroVol.value));
-    setTom(parseInt(tomSlider.value, 10)); // <-- NOVO: Aplica o tom ao dar play
+    setTom(parseInt(tomSlider.value, 10)); 
 
     updateProgress();
     
@@ -416,6 +398,9 @@ async function forcePlay() {
 }
 
 playBtn.addEventListener('click', async () => {
+  // --- O PULO DO GATO PARA O IPHONE AQUI: Acorda o áudio ao clicar no Play ---
+  if (typeof unlockAudio === 'function') unlockAudio();
+
   if (!selectedSong) { 
     const defaultList = getDefaultList();
     if (defaultList.length) applySong(defaultList[0].id); 
@@ -443,7 +428,7 @@ playBtn.addEventListener('click', async () => {
     setVozVolume(parseFloat(vozVol.value));
     setPlaybackVolume(parseFloat(playbackVol.value));
     setMetroVolume(parseFloat(metroVol.value));
-    setTom(parseInt(tomSlider.value, 10)); // <-- NOVO: Aplica o tom ao dar play
+    setTom(parseInt(tomSlider.value, 10)); 
 
     if (animationFrameId) cancelAnimationFrame(animationFrameId);
     updateProgress();
