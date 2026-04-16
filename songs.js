@@ -30,5 +30,8 @@ export const SONGS = [
     ocultarMetronomo: true // <-- Adicionado aqui para desativar o metrônomo 
     },
   { id: "9", title: "Galileu", artist: "Sued Silva", bpm: 126, timeSignature: "4/4", offset: 0.00, tom: "F#" }, // <-- Adicionado
-  { id: "10", title: "O Seu Amor por Mim + Me Ama", artist: "Áquila Amorim", bpm: 136, timeSignature: "3/4", offset: 0.00, tom: "G" }, // <-- Adicionado
+  { id: "10", title: "O Seu Amor por Mim + Me Ama", artist: "Áquila Amorim", bpm: 136, timeSignature: "3/4", offset: 0.00, tom: "G",
+  bpmMap:[
+    { time: 0, bpm: 136 },
+    { time: 135,000, bpm: 250 }
 ];
