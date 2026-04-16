@@ -33,5 +33,7 @@ export const SONGS = [
   { id: "10", title: "O Seu Amor por Mim + Me Ama", artist: "Áquila Amorim", bpm: 136, timeSignature: "3/4", offset: 0.00, tom: "G",
   bpmMap:[
     { time: 0, bpm: 136 },
-    { time: 135,000, bpm: 250 }]
+    { time: 135.000, bpm: 250 }
+  ]
+},
 ];
