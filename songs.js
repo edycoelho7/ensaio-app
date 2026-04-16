@@ -29,7 +29,7 @@ export const SONGS = [
   { id: "8", title: "Jesus Filho de Deus + Nada Além do Sangue (Ao-Vivo)", artist: "Pedro Bertoldo", bpm: 132, timeSignature: "4/4", offset: 22.00, tom: "E", 
     ocultarMetronomo: true // <-- Adicionado aqui para desativar o metrônomo 
     },
-  { id: "9", title: "Galileu", artist: "Sued Silva", bpm: 126, timeSignature: "4/4", offset: 6.50, tom: "F#" }, // <-- Adicionado
+  { id: "9", title: "Galileu", artist: "Sued Silva", bpm: 126, timeSignature: "4/4", offset: 6.40, tom: "F#" }, // <-- Adicionado
   { id: "10", title: "O Seu Amor por Mim + Me Ama", artist: "Áquila Amorim", bpm: 136, timeSignature: "3/4", offset: 0.00, tom: "G",
   bpmMap:[
     { time: 0, bpm: 136 },
