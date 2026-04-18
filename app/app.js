@@ -137,8 +137,8 @@ onAuthStateChanged(auth, (user) => {
 
 // app/app.js
 // --- AQUI ESTÁ O CACHE BUSTING CORRIGIDO NAS IMPORTAÇÕES ---
-import { SONGS } from '../songs.js?v=1.1';
-import { startAll, stopAll, togglePause, seekTo, setVozVolume, setPlaybackVolume, setMetroVolume, setTom, getDuration, getCurrentTime, unlockAudio } from './audio-engine.js?v=1.1';
+import { SONGS } from '../songs.js?v=1.2';
+import { startAll, stopAll, togglePause, seekTo, setVozVolume, setPlaybackVolume, setMetroVolume, setTom, getDuration, getCurrentTime, unlockAudio } from './audio-engine.js?v=1.2';
 
 const songListEl   = document.getElementById('songList');
 const songSearchEl = document.getElementById('songSearch');

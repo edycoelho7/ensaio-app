@@ -29,4 +29,17 @@ export const SONGS = [
   { id: "8", title: "Jesus Filho de Deus + Nada Além do Sangue (Ao-Vivo)", artist: "Pedro Bertoldo", bpm: 132, timeSignature: "4/4", offset: 22.00, tom: "E", 
     ocultarMetronomo: true // <-- Adicionado aqui para desativar o metrônomo 
     },
+  { id: "9", title: "Galileu", artist: "Sued Silva", bpm: 126, timeSignature: "4/4", offset: 6.40, tom: "F#", ocultarMetronomo: true
+  },
+  { id: "10", title: "O Seu Amor por Mim + Me Ama", artist: "Áquila Amorim", bpm: 136, timeSignature: "3/4", offset: 0.00, tom: "G",
+  bpmMap:[
+    { time: 0, bpm: 136 },
+    { time: 135.500, bpm: 136 },
+    { time: 452.000, bpm:1 }
+  ]
+},
+  { id: "11", title: "Tudo é Perda + Eu só quero Tua presença", artist: "Felipe Rodrigues", bpm: 130, timeSignature: "4/4", offset: 18.590, tom: "C#" },
+  { id: "12", title: "Meia Noite", artist: "Fhop Music", bpm: 196, timeSignature: "4/4", offset: 0.63, tom: "D" },
+  { id: "13", title: "Se eu não te ouvir", artist: "Sarah Farias", bpm: 140, timeSignature: "4/4", offset: 3.350, tom: "C" },
+
 ];
