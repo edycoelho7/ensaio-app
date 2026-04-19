@@ -137,8 +137,8 @@ onAuthStateChanged(auth, (user) => {
 
 // app/app.js
 // --- AQUI ESTÁ O CACHE BUSTING CORRIGIDO NAS IMPORTAÇÕES ---
-import { SONGS } from '../songs.js?v=1.2';
-import { startAll, stopAll, togglePause, seekTo, setVozVolume, setPlaybackVolume, setMetroVolume, setTom, getDuration, getCurrentTime, unlockAudio } from './audio-engine.js?v=1.2';
+import { SONGS } from '../songs.js?v=1.5';
+import { startAll, stopAll, togglePause, seekTo, setVozVolume, setPlaybackVolume, setMetroVolume, setTom, getDuration, getCurrentTime, unlockAudio } from './audio-engine.js?v=1.5';
 
 const songListEl   = document.getElementById('songList');
 const songSearchEl = document.getElementById('songSearch');
@@ -480,10 +480,60 @@ songSearchEl.addEventListener('input', () => {
   renderList(filtered);
 });
 
+// ==========================================
+// LÓGICA DO POP-UP DE NOVIDADES
+// ==========================================
+const VERSAO_ATUAL_APP = "1.4"; // 🔴 MUDE AQUI SEMPRE QUE ADICIONAR MÚSICAS
+
+const HISTORICO_NOVIDADES = {
+  "1.2": ["Digno de Glória", "Vitorioso És"],
+  "1.3": ["Tua Presença", "A Casa é Sua", "Novo Cântico"], 
+  "1.4": ["Sobre as Águas"] // 🔴 COLOQUE AS MÚSICAS NOVAS AQUI
+};
+
+function verificarNovasMusicas() {
+  const versaoVista = localStorage.getItem("ebnz_versao_vista") || "0.0";
+  const popup = document.getElementById("popup-novidades");
+  const listaHtml = document.getElementById("lista-novas-musicas");
+  const btnFechar = document.getElementById("btn-fechar-popup");
+
+  // Verifica se o elemento popup existe na tela para não dar erro
+  if (!popup) return;
+
+  // Se a versão atual for diferente da vista pelo usuário E existir novidades cadastradas
+  if (versaoVista !== VERSAO_ATUAL_APP && HISTORICO_NOVIDADES[VERSAO_ATUAL_APP]) {
+    const novasMusicas = HISTORICO_NOVIDADES[VERSAO_ATUAL_APP];
+    
+    listaHtml.innerHTML = ""; // Limpa a lista por garantia
+    
+    // Cria os itens da lista
+    novasMusicas.forEach(musica => {
+      const li = document.createElement("li");
+      li.textContent = `🎤 ${musica}`;
+      li.style.padding = "8px 0";
+      li.style.borderBottom = "1px solid rgba(255, 255, 255, 0.1)";
+      listaHtml.appendChild(li);
+    });
+
+    // Mostra o pop-up
+    popup.classList.add("popup-visivel");
+
+    // Ação do botão fechar
+    btnFechar.onclick = () => {
+      popup.classList.remove("popup-visivel");
+      // Grava no celular do usuário que ele já viu esta versão
+      localStorage.setItem("ebnz_versao_vista", VERSAO_ATUAL_APP);
+    };
+  }
+}
+
 (function bootstrap(){
   const listaInicial = getDefaultList();
   renderList(listaInicial);
   if (listaInicial.length) applySong(listaInicial[0].id);
+
+  // 🔴 CHAMA A VERIFICAÇÃO DO POP-UP ASSIM QUE O APP INICIA
+  verificarNovasMusicas();
 
   document.addEventListener('keydown', (e) => {
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {

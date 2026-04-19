@@ -141,3 +141,26 @@ input[type=range].slider::-moz-range-thumb {
   border: none;
   box-shadow: 0 0 8px rgba(0, 229, 255, 0.5);
 }
+
+/* ========================================== */
+/* ESTILOS DO POP-UP DE NOVIDADES             */
+/* ========================================== */
+
+#popup-novidades {
+    display: none; /* Começa escondido por padrão */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(3, 8, 20, 0.9); /* Fundo escuro transparente, combina com sua var(--bg) */
+    z-index: 9999; /* Fica por cima do player e do header */
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px); /* Efeito de desfoque no fundo */
+}
+
+/* Classe ativada pelo JavaScript para mostrar o pop-up */
+#popup-novidades.popup-visivel {
+    display: flex;
+}
