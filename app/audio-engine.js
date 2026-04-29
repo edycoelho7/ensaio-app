@@ -76,11 +76,17 @@ function scheduleClick(time, isAccent) {
 }
 
 function getSegmentAtTime(song, timeInSong) {
-  let activeSegment = { time: 0, bpm: Number(song.bpm) || 120 };
+  // A CHAVE AQUI: O 'time' padrão agora é o offset da música, e não mais 0.
+  // Isso salva as músicas que têm apenas 1 BPM!
+  let activeSegment = { 
+    time: Number(song.offset) || 0, 
+    bpm: Number(song.bpm) || 120 
+  };
   let nextSegment = null;
 
   if (song.bpmMap && song.bpmMap.length > 0) {
     for (let i = 0; i < song.bpmMap.length; i++) {
+      // O + 0.01 é uma margem de segurança para evitar pular de bloco na cabeça do tempo
       if (timeInSong + 0.01 >= song.bpmMap[i].time) {
         activeSegment = song.bpmMap[i];
         nextSegment = song.bpmMap[i + 1] || null;
@@ -101,17 +107,17 @@ function scheduler(song, beatsPerBar) {
     const isAccent = (currentBeatInBar % beatsPerBar === 0);
     scheduleClick(currentNoteTime, isAccent);
 
-    const songOffset = Number(song.offset) || 0;
-    const timeInSong = currentNoteTime - startTime - songOffset;
+    // AJUSTE AQUI: Usamos o tempo absoluto (sem subtrair o offset de novo)
+    const timeInSong = currentNoteTime - startTime; 
 
     const { activeSegment, nextSegment } = getSegmentAtTime(song, timeInSong);
     const secPerBeat = secondsPerBeat(activeSegment.bpm);
 
     let nextNoteTimeCandidate = currentNoteTime + secPerBeat;
-    let nextTimeInSongCandidate = nextNoteTimeCandidate - startTime - songOffset;
+    let nextTimeInSongCandidate = nextNoteTimeCandidate - startTime;
 
     if (nextSegment && nextTimeInSongCandidate >= nextSegment.time) {
-      currentNoteTime = startTime + songOffset + nextSegment.time;
+      currentNoteTime = startTime + nextSegment.time;
       currentBeatInBar = 0; 
     } else {
       currentNoteTime = nextNoteTimeCandidate;
@@ -179,21 +185,28 @@ export function seekTo(percent, song) {
 
   const beatsPerBar = parseInt(String(song.timeSignature).split('/')[0], 10) || 4;
   const songOffset = Number(song.offset) || 0;
-  const timeInSong = offsetTime - songOffset;
+  
+  // O tempo absoluto da música onde o slider parou
+  const absoluteTimeInSong = offsetTime;
 
-  if (timeInSong >= 0) {
-    const { activeSegment } = getSegmentAtTime(song, timeInSong);
+  if (absoluteTimeInSong >= songOffset) {
+    const { activeSegment } = getSegmentAtTime(song, absoluteTimeInSong);
     const secPerBeat = secondsPerBeat(activeSegment.bpm);
 
-    const timeIntoSegment = timeInSong - activeSegment.time;
-
-    const beatsPassed = Math.floor(timeIntoSegment / secPerBeat);
-    currentBeatInBar = (beatsPassed + 1) % beatsPerBar;
-    const timeSinceLastBeat = timeIntoSegment % secPerBeat;
-    currentNoteTime = audioCtx.currentTime + (secPerBeat - timeSinceLastBeat);
+    // Quanto tempo passou desde o início deste bloco de BPM
+    const timeIntoSegment = absoluteTimeInSong - activeSegment.time;
+    const nextBeatNumber = Math.ceil(timeIntoSegment / secPerBeat);
+    
+    // O próximo clique será no tempo exato do bloco + as batidas necessárias
+    const nextBeatAbsoluteTime = activeSegment.time + (nextBeatNumber * secPerBeat);
+    
+    currentNoteTime = startTime + nextBeatAbsoluteTime;
+    currentBeatInBar = nextBeatNumber % beatsPerBar;
+    
   } else {
+    // Se estiver no silêncio antes do offset, agenda para começar no offset
     currentBeatInBar = 0;
-    currentNoteTime = audioCtx.currentTime + Math.abs(timeInSong);
+    currentNoteTime = startTime + songOffset;
   }
 
   schedulerTimerId = setInterval(() => scheduler(song, beatsPerBar), lookahead);

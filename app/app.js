@@ -483,12 +483,13 @@ songSearchEl.addEventListener('input', () => {
 // ==========================================
 // LÓGICA DO POP-UP DE NOVIDADES
 // ==========================================
-const VERSAO_ATUAL_APP = "1.4"; // 🔴 MUDE AQUI SEMPRE QUE ADICIONAR MÚSICAS
+const VERSAO_ATUAL_APP = "1.5"; // 🔴 MUDE AQUI SEMPRE QUE ADICIONAR MÚSICAS
 
 const HISTORICO_NOVIDADES = {
   "1.2": ["Digno de Glória", "Vitorioso És"],
   "1.3": ["Tua Presença", "A Casa é Sua", "Novo Cântico"], 
-  "1.4": ["Sobre as Águas"] // 🔴 COLOQUE AS MÚSICAS NOVAS AQUI
+  "1.4": ["Sobre as Águas"],
+  "1.5": ["O Seu Amor por mim", "Tu és + Águas Purificadoras", "Jeová Jireh", "Escape", "Jesus e o Caminho (Ao Vivo)"] // 🔴 COLOQUE AS MÚSICAS NOVAS AQUI
 };
 
 function verificarNovasMusicas() {

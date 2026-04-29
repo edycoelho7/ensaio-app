@@ -18,7 +18,7 @@ export const SONGS = [
   },
   { id: "4", title: "You Are Good", artist: "Israel Houghton", bpm: 130, timeSignature: "4/4", offset: 1.41, tom: "E" }, // <-- Adicionado
   { id: "5", title: "Um novo dia", artist: "Get Worship", bpm: 151, timeSignature: "3/4", offset: 2.50, tom: "F#" },
-  { id: "6", title: "Tudo é Pra Tua Glória (ao vivo)", artist: "Dunamis", bpm: 142, timeSignature: "4/4", offset: 1.90, tom: "A", bpmMap:[
+  { id: "6", title: "Tudo e Pra Tua Glória (ao vivo)", artist: "Dunamis", bpm: 142, timeSignature: "4/4", offset: 1.90, tom: "A", bpmMap:[
     { time: 0, bpm: 142 },         // Início da música (considerando o offset de 1.95)
     { time: 273.500, bpm: 138 },    // Ponto onde o metrônomo zera e recomeça aos 41.951s
     { time: 286.500, bpm: 138 },
@@ -38,12 +38,29 @@ export const SONGS = [
     { time: 452.000, bpm:1 }
   ]
 },
-  { id: "11", title: "Tudo é Perda + Eu só quero Tua presença", artist: "Felipe Rodrigues", bpm: 130, timeSignature: "4/4", offset: 18.590, tom: "C#" },
+  { id: "11", title: "Tudo é Perda + Eu so quero Tua presença", artist: "Felipe Rodrigues", bpm: 130, timeSignature: "4/4", offset: 18.590, tom: "C#" },
   { id: "12", title: "Meia Noite", artist: "Fhop Music", bpm: 196, timeSignature: "4/4", offset: 0.63, tom: "D" },
-  { id: "13", title: "Se eu não te ouvir", artist: "Sarah Farias", bpm: 140, timeSignature: "4/4", offset: 3.350, tom: "C" },
-  { id: "14", title: "Sobre as Águas", artist: "Rapha Gonçalves", bpm: 165, timeSignature: "3/4", offset: 1.3, tom: "E",
+  { id: "13", title: "Se eu nao te ouvir", artist: "Sarah Farias", bpm: 140, timeSignature: "4/4", offset: 3.350, tom: "C" },
+  { id: "14", title: "Sobre as Aguas", artist: "Rapha Gonçalves", bpm: 165, timeSignature: "3/4", offset: 1.3, tom: "E",
   bpmMap:[
     { time: 0, bpm: 165 },
     { time: 17.400, bpm: 166 }  ]
   },
+  { id: "15", title: "O Seu Amor por mim", artist: "Weslei Santos", bpm: 140, timeSignature: "6/8", offset: 81.10, tom: "F#" },
+  { id: "16", title: "Tu es + Aguas Purificadoras", artist: "Fhop Music", bpm: 142, timeSignature: "4/4", offset: 0.40, tom: "D" },
+  { id: "17", title: "Jeová Jireh", artist: "Aline Barros", bpm: 134, timeSignature: "4/4", offset: 0.316, tom: "G" ,
+    bpmMap:[
+    { time: 0.316, bpm: 134 },
+    { time: 395.500, bpm: 1 }
+    ]
+  },
+  { id: "18", title: "Escape", artist: "Renascer Praise", bpm: 128, timeSignature: "4/4", offset: 32.00, tom: "D" ,
+    bpmMap:[
+    { time: 32.00, bpm: 128 },
+    { time: 211.95, bpm: 132 },
+    { time: 380.95, bpm: 1 }
+    ]
+  },
+  { id: "19", title: "Jesus e o Caminho (Ao Vivo)", artist: "Heloisa Rosa", bpm: 138, timeSignature: "4/4", offset: 2.40, tom: "E" },
+
 ];
