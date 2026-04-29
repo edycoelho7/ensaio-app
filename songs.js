@@ -62,5 +62,11 @@ export const SONGS = [
     ]
   },
   { id: "19", title: "Jesus e o Caminho (Ao Vivo)", artist: "Heloisa Rosa", bpm: 138, timeSignature: "4/4", offset: 2.40, tom: "E" },
-
+  { id: "20", title: "Com Cristo e Vencer ", artist: "Cassiane", bpm: 142, timeSignature: "4/4", offset: 0.42, tom: "B" , ocultarMetronomo: true },
+  { id: "21", title: "Em Tua Presença (Ao Vivo)", artist: "Nivea Soares", bpm: 156, timeSignature: "4/4", offset: 0.42, tom: "G" },
+  { id: "22", title: "Canção que não envelhece", artist: "Julliany Souza - Lukas Agustinho", bpm: 135, timeSignature: "4/4", offset: 0.92, tom: "G#" },
+  { id: "23", title: "Sou Grato Por Seu Amor", artist: "Get Worship", bpm: 144, timeSignature: "4/4", offset: 1.50, tom: "D" },
+  { id: "24", title: "Mil Graus", artist: "Renascer Praise", bpm: 153, timeSignature: "4/4", offset: 1.70, tom: "C" },
+  { id: "25", title: "Salmos 126", artist: "Ministerio Zoe", bpm: 62, timeSignature: "4/4", offset: 1.90, tom: "A#" , ocultarMetronomo: true
+    },
 ];

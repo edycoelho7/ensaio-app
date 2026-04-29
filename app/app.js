@@ -137,8 +137,8 @@ onAuthStateChanged(auth, (user) => {
 
 // app/app.js
 // --- AQUI ESTÁ O CACHE BUSTING CORRIGIDO NAS IMPORTAÇÕES ---
-import { SONGS } from '../songs.js?v=1.5';
-import { startAll, stopAll, togglePause, seekTo, setVozVolume, setPlaybackVolume, setMetroVolume, setTom, getDuration, getCurrentTime, unlockAudio } from './audio-engine.js?v=1.5';
+import { SONGS } from '../songs.js?v=1.6';
+import { startAll, stopAll, togglePause, seekTo, setVozVolume, setPlaybackVolume, setMetroVolume, setTom, getDuration, getCurrentTime, unlockAudio } from './audio-engine.js?v=1.6';
 
 const songListEl   = document.getElementById('songList');
 const songSearchEl = document.getElementById('songSearch');
@@ -483,10 +483,10 @@ songSearchEl.addEventListener('input', () => {
 // ==========================================
 // LÓGICA DO POP-UP DE NOVIDADES
 // ==========================================
-const VERSAO_ATUAL_APP = "1.5"; // 🔴 MUDE AQUI SEMPRE QUE ADICIONAR MÚSICAS
+const VERSAO_ATUAL_APP = "1.6"; // 🔴 MUDE AQUI SEMPRE QUE ADICIONAR MÚSICAS
 
 const HISTORICO_NOVIDADES = {
-  "1.2": ["Digno de Glória", "Vitorioso És"],
+  "1.6": ["Com Cristo e Vencer", "Em Tua Presença (Ao Vivo)", "Canção que não envelhece", "Sou Grato Por Seu Amor", "Mil Graus", "Salmos 126"],
   "1.3": ["Tua Presença", "A Casa é Sua", "Novo Cântico"], 
   "1.4": ["Sobre as Águas"],
   "1.5": ["O Seu Amor por mim", "Tu és + Águas Purificadoras", "Jeová Jireh", "Escape", "Jesus e o Caminho (Ao Vivo)"] // 🔴 COLOQUE AS MÚSICAS NOVAS AQUI
