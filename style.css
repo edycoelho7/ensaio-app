@@ -164,3 +164,94 @@ input[type=range].slider::-moz-range-thumb {
 #popup-novidades.popup-visivel {
     display: flex;
 }
+
+/* ========================================== */
+/* ABAS (TABS) E AGENDA                       */
+/* ========================================== */
+
+/* Container dos botões das abas */
+.tabs-container {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+/* Estilo padrão do botão da aba (Inativo) */
+.tab-btn {
+  flex: 1; /* Faz os botões dividirem o espaço igualmente */
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: #111e38; 
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+/* Estilo do botão da aba (Ativo) */
+.tab-btn.active {
+  background: var(--primary);
+  color: #030814;
+  border-color: var(--primary);
+  box-shadow: 0 4px 12px rgba(0, 180, 216, 0.3);
+}
+
+/* Controle de exibição do conteúdo das abas */
+.tab-content {
+  display: none; /* Esconde o conteúdo por padrão */
+}
+
+.tab-content.active {
+  display: block; /* Mostra apenas a aba ativa */
+  animation: fadeIn 0.3s ease; /* Efeito suave ao trocar de aba */
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Cabeçalho da lista (Título + Botão WhatsApp) */
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.list-title {
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  color: var(--text);
+}
+
+/* Botão Avisar Grupo (WhatsApp) */
+.btn-whatsapp {
+  padding: 6px 14px;
+  border-radius: 20px; /* Bordas arredondadas */
+  border: 1px solid var(--primary);
+  background: transparent;
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.btn-whatsapp:hover, .btn-whatsapp:active {
+  background: rgba(0, 180, 216, 0.1);
+  box-shadow: 0 0 8px rgba(0, 180, 216, 0.2);
+}

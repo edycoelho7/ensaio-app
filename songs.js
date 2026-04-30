@@ -41,10 +41,7 @@ export const SONGS = [
   { id: "11", title: "Tudo é Perda + Eu so quero Tua presença", artist: "Felipe Rodrigues", bpm: 130, timeSignature: "4/4", offset: 18.590, tom: "C#" },
   { id: "12", title: "Meia Noite", artist: "Fhop Music", bpm: 196, timeSignature: "4/4", offset: 0.63, tom: "D" },
   { id: "13", title: "Se eu nao te ouvir", artist: "Sarah Farias", bpm: 140, timeSignature: "4/4", offset: 3.350, tom: "C" },
-  { id: "14", title: "Sobre as Aguas", artist: "Rapha Gonçalves", bpm: 165, timeSignature: "3/4", offset: 1.3, tom: "E",
-  bpmMap:[
-    { time: 0, bpm: 165 },
-    { time: 17.400, bpm: 166 }  ]
+  { id: "14", title: "Sobre as Aguas", artist: "Rapha Gonçalves", bpm: 166, timeSignature: "3/4", offset: 1.40, tom: "E"
   },
   { id: "15", title: "O Seu Amor por mim", artist: "Weslei Santos", bpm: 140, timeSignature: "6/8", offset: 81.10, tom: "F#" },
   { id: "16", title: "Tu es + Aguas Purificadoras", artist: "Fhop Music", bpm: 142, timeSignature: "4/4", offset: 0.40, tom: "D" },

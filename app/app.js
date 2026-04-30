@@ -136,11 +136,21 @@ onAuthStateChanged(auth, (user) => {
 // --- SEU CÓDIGO ORIGINAL COMEÇA AQUI EMBAIXO ---
 
 // app/app.js
-// --- AQUI ESTÁ O CACHE BUSTING CORRIGIDO NAS IMPORTAÇÕES ---
-import { SONGS } from '../songs.js?v=1.6';
-import { startAll, stopAll, togglePause, seekTo, setVozVolume, setPlaybackVolume, setMetroVolume, setTom, getDuration, getCurrentTime, unlockAudio } from './audio-engine.js?v=1.6';
+import { SONGS } from '../songs.js?v=1.7';
+import { startAll, stopAll, togglePause, seekTo, setVozVolume, setPlaybackVolume, setMetroVolume, setTom, getDuration, getCurrentTime, unlockAudio } from './audio-engine.js?v=1.7';
 
-const songListEl   = document.getElementById('songList');
+// 🔴 NOVO: ELEMENTOS DA INTERFACE DAS ABAS E BUSCA
+const searchResultsEl = document.getElementById('searchResults');
+const tabsContainerEl = document.querySelector('.tabs-container');
+const contentRepertorio = document.getElementById('contentRepertorio');
+const contentRecentes = document.getElementById('contentRecentes');
+const tabBtnRepertorio = document.getElementById('tabBtnRepertorio');
+const tabBtnRecentes = document.getElementById('tabBtnRecentes');
+const repertorioListEl = document.getElementById('repertorioList');
+const btnAvisarGrupo = document.getElementById('btnAvisarGrupo');
+
+// ELEMENTOS ORIGINAIS DO PLAYER
+const songListEl   = document.getElementById('songList'); // Agora usado para as recentes
 const songSearchEl = document.getElementById('songSearch');
 const songTitleEl  = document.getElementById('songTitle');
 const songArtistEl = document.getElementById('songArtist');
@@ -172,6 +182,78 @@ let selectedSong = null;
 let animationFrameId = null;
 let isPaused = false;
 let isDragging = false; 
+
+// ==========================================
+// 🔴 NOVO: LÓGICA DO REPERTÓRIO DO DIA
+// ==========================================
+// Digite aqui o título exato das músicas (como estão no songs.js) para aparecerem na aba Repertório
+const REPERTORIO_DO_DIA = [
+  "Algo Novo Vin",
+  "Gali",
+  "Digno de Tudo",
+  "Ousado Amor"
+];
+
+function renderRepertorio() {
+  if (!repertorioListEl) return;
+  repertorioListEl.innerHTML = '';
+
+  const repertorioItems = REPERTORIO_DO_DIA.map(titulo => SONGS.find(s => s.title === titulo)).filter(Boolean);
+
+  if (repertorioItems.length === 0) {
+     repertorioListEl.innerHTML = '<li class="muted" style="text-align:center;">Nenhuma música definida.</li>';
+     return;
+  }
+
+  repertorioItems.forEach((s) => {
+    const li = document.createElement('li');
+    // Agora o texto é gerado igual ao renderList: Título — Artista
+    li.textContent = `${s.title} — ${s.artist || 'Desconhecido'}`;
+    li.tabIndex = 0;
+    
+    li.addEventListener('click', () => { 
+      applySong(s.id); 
+      forcePlay(); 
+    });
+    
+    repertorioListEl.appendChild(li);
+  });
+}
+
+// ==========================================
+// 🔴 NOVO: LÓGICA DAS ABAS E WHATSAPP
+// ==========================================
+if (tabBtnRepertorio && tabBtnRecentes) {
+  tabBtnRepertorio.addEventListener('click', () => {
+    tabBtnRepertorio.classList.add('active');
+    contentRepertorio.classList.add('active');
+    tabBtnRecentes.classList.remove('active');
+    contentRecentes.classList.remove('active');
+  });
+
+  tabBtnRecentes.addEventListener('click', () => {
+    tabBtnRecentes.classList.add('active');
+    contentRecentes.classList.add('active');
+    tabBtnRepertorio.classList.remove('active');
+    contentRepertorio.classList.remove('active');
+  });
+}
+
+if (btnAvisarGrupo) {
+  btnAvisarGrupo.addEventListener('click', () => {
+    let texto = "*🗓️ Repertório do Culto - Domingo*\n\n";
+    const repertorioItems = REPERTORIO_DO_DIA.map(titulo => SONGS.find(s => s.title === titulo)).filter(Boolean);
+    
+    repertorioItems.forEach((s, index) => {
+        texto += `${index + 1}. *${s.title}* (${s.artist || 'Desconhecido'})\n`;
+    });
+    
+    texto += "\n_Link do App: https://edycoelho7.github.io/ensaio-app/"; // Você pode colocar o link do seu app no GitHub aqui
+    
+    const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(texto)}`;
+    window.open(url, '_blank');
+  });
+}
 
 // LÓGICA DE ESCALA MUSICAL PARA O TOM
 const escalaSubindo = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
@@ -234,27 +316,37 @@ function getDefaultList() {
   return SONGS.slice(0, 3);
 }
 
+// 🔴 NOVO: FUNÇÃO RENDER LIST ATUALIZADA (Integra Busca e Abas)
 function renderList(items) {
   items = items.filter(musica => musica.ativo !== false);
 
-  songListEl.innerHTML = '';
+  const isSearchEmpty = songSearchEl.value.trim() === '';
+  
+  // Define onde as músicas vão aparecer: Busca ou Histórico
+  const listaAlvo = isSearchEmpty ? songListEl : searchResultsEl;
+  listaAlvo.innerHTML = '';
+
+  // Lógica de exibição da interface
+  if (isSearchEmpty) {
+    searchResultsEl.style.display = 'none';
+    tabsContainerEl.style.display = 'flex';
+    
+    const activeTab = document.querySelector('.tab-btn.active').id;
+    if (activeTab === 'tabBtnRepertorio') contentRepertorio.classList.add('active');
+    if (activeTab === 'tabBtnRecentes') contentRecentes.classList.add('active');
+  } else {
+    searchResultsEl.style.display = 'block';
+    tabsContainerEl.style.display = 'none';
+    contentRepertorio.classList.remove('active');
+    contentRecentes.classList.remove('active');
+  }
+
   if (!items || !items.length) {
-    songListEl.innerHTML = '<li class="muted">Nada encontrado…</li>';
+    listaAlvo.innerHTML = '<li class="muted" style="text-align:center;">Nada encontrado…</li>';
     return;
   }
   
-  const isSearchEmpty = songSearchEl.value.trim() === '';
-  const itensParaMostrar = items.slice(0, 3);
-
-  if (isSearchEmpty && getHistoryIds().length > 0) {
-    const tituloHistorico = document.createElement('li');
-    tituloHistorico.textContent = '🕒 Tocadas Recentemente';
-    tituloHistorico.style.fontSize = '12px';
-    tituloHistorico.style.opacity = '0.6';
-    tituloHistorico.style.pointerEvents = 'none';
-    tituloHistorico.style.paddingBottom = '4px';
-    songListEl.appendChild(tituloHistorico);
-  }
+  const itensParaMostrar = isSearchEmpty ? items.slice(0, 3) : items;
 
   itensParaMostrar.forEach(s => {
     const li = document.createElement('li');
@@ -272,7 +364,7 @@ function renderList(items) {
       } 
     });
     
-    songListEl.appendChild(li);
+    listaAlvo.appendChild(li);
   });
 }
 
@@ -318,10 +410,11 @@ function applySong(id) {
   }
   setFill(metroVol); 
 
-  const items = Array.from(songListEl.children);
-  items.forEach(li => li.classList.remove('selected'));
-  const found = items.find(li => li.textContent.includes(s.title));
-  if (found) found.classList.add('selected');
+  // 🔴 NOVO: Aplica a classe 'selected' em qualquer lista que a música estiver visível (Busca, Recentes, Repertório)
+  const allItems = document.querySelectorAll('.list li');
+  allItems.forEach(li => li.classList.remove('selected'));
+  const founds = Array.from(allItems).filter(li => li.textContent.includes(s.title));
+  founds.forEach(found => found.classList.add('selected'));
 }
 
 function formatTime(seconds) {
@@ -364,7 +457,6 @@ progressBar.addEventListener('change', (e) => {
 });
 
 async function forcePlay() {
-  // --- O PULO DO GATO PARA O IPHONE AQUI: Acorda o áudio ao clicar na lista ---
   if (typeof unlockAudio === 'function') unlockAudio();
 
   stopAll(); 
@@ -398,11 +490,12 @@ async function forcePlay() {
 }
 
 playBtn.addEventListener('click', async () => {
-  // --- O PULO DO GATO PARA O IPHONE AQUI: Acorda o áudio ao clicar no Play ---
   if (typeof unlockAudio === 'function') unlockAudio();
 
   if (!selectedSong) { 
-    const defaultList = getDefaultList();
+    // Se clicar em play sem música, pega a primeira do repertório do dia (se houver), se não, pega do histórico
+    const repItems = REPERTORIO_DO_DIA.map(t => SONGS.find(s => s.title === t)).filter(Boolean);
+    const defaultList = repItems.length > 0 ? repItems : getDefaultList();
     if (defaultList.length) applySong(defaultList[0].id); 
     else return; 
   }
@@ -471,7 +564,6 @@ vozVol.addEventListener('input', (e) => { setVozVolume(+e.target.value); syncAll
 playbackVol.addEventListener('input', (e) => { setPlaybackVolume(+e.target.value); syncAll(); });
 metroVol.addEventListener('input', (e) => { setMetroVolume(+e.target.value); syncAll(); });
 
-// Inicializa a interface do Tom logo de cara
 updateTomUI();
 syncAll();
 
@@ -483,13 +575,11 @@ songSearchEl.addEventListener('input', () => {
 // ==========================================
 // LÓGICA DO POP-UP DE NOVIDADES
 // ==========================================
-const VERSAO_ATUAL_APP = "1.6"; // 🔴 MUDE AQUI SEMPRE QUE ADICIONAR MÚSICAS
+const VERSAO_ATUAL_APP = "1.6"; 
 
 const HISTORICO_NOVIDADES = {
   "1.6": ["Com Cristo e Vencer", "Em Tua Presença (Ao Vivo)", "Canção que não envelhece", "Sou Grato Por Seu Amor", "Mil Graus", "Salmos 126"],
-  "1.3": ["Tua Presença", "A Casa é Sua", "Novo Cântico"], 
-  "1.4": ["Sobre as Águas"],
-  "1.5": ["O Seu Amor por mim", "Tu és + Águas Purificadoras", "Jeová Jireh", "Escape", "Jesus e o Caminho (Ao Vivo)"] // 🔴 COLOQUE AS MÚSICAS NOVAS AQUI
+  "1.5": ["O Seu Amor por mim", "Tu és + Águas Purificadoras", "Jeová Jireh", "Escape", "Jesus e o Caminho (Ao Vivo)"] 
 };
 
 function verificarNovasMusicas() {
@@ -498,16 +588,13 @@ function verificarNovasMusicas() {
   const listaHtml = document.getElementById("lista-novas-musicas");
   const btnFechar = document.getElementById("btn-fechar-popup");
 
-  // Verifica se o elemento popup existe na tela para não dar erro
   if (!popup) return;
 
-  // Se a versão atual for diferente da vista pelo usuário E existir novidades cadastradas
   if (versaoVista !== VERSAO_ATUAL_APP && HISTORICO_NOVIDADES[VERSAO_ATUAL_APP]) {
     const novasMusicas = HISTORICO_NOVIDADES[VERSAO_ATUAL_APP];
     
-    listaHtml.innerHTML = ""; // Limpa a lista por garantia
+    listaHtml.innerHTML = ""; 
     
-    // Cria os itens da lista
     novasMusicas.forEach(musica => {
       const li = document.createElement("li");
       li.textContent = `🎤 ${musica}`;
@@ -516,25 +603,31 @@ function verificarNovasMusicas() {
       listaHtml.appendChild(li);
     });
 
-    // Mostra o pop-up
     popup.classList.add("popup-visivel");
 
-    // Ação do botão fechar
     btnFechar.onclick = () => {
       popup.classList.remove("popup-visivel");
-      // Grava no celular do usuário que ele já viu esta versão
       localStorage.setItem("ebnz_versao_vista", VERSAO_ATUAL_APP);
     };
   }
 }
 
 (function bootstrap(){
-  const listaInicial = getDefaultList();
-  renderList(listaInicial);
-  if (listaInicial.length) applySong(listaInicial[0].id);
+  renderRepertorio();
 
-  // 🔴 CHAMA A VERIFICAÇÃO DO POP-UP ASSIM QUE O APP INICIA
-  verificarNovasMusicas();
+  const listaInicial = getDefaultList(); // Pega as Recentes
+  renderList(listaInicial);
+  
+  // Prioriza as Recentes no carregamento inicial do player
+  if (listaInicial.length) {
+    applySong(listaInicial[0].id);
+  } else {
+    // Se não tiver recentes, tenta o repertório
+    const repItems = REPERTORIO_DO_DIA.map(t => SONGS.find(s => s.title === t)).filter(Boolean);
+    if (repItems.length > 0) applySong(repItems[0].id);
+  }
+
+    verificarNovasMusicas();
 
   document.addEventListener('keydown', (e) => {
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
