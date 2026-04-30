@@ -575,10 +575,10 @@ songSearchEl.addEventListener('input', () => {
 // ==========================================
 // LÓGICA DO POP-UP DE NOVIDADES
 // ==========================================
-const VERSAO_ATUAL_APP = "1.7"; 
+const VERSAO_ATUAL_APP = "1.8"; 
 
 const HISTORICO_NOVIDADES = {
-  "1.6": ["Com Cristo e Vencer", "Em Tua Presença (Ao Vivo)", "Canção que não envelhece", "Sou Grato Por Seu Amor", "Mil Graus", "Salmos 126"],
+  "1.8": ["Tudo É Perda + Tua Presença", "Em nome de Jesus", "Digno é o Senhor + Senhor e Rei", "Quero Subir", "Santidade", "Ser Reconhecido", "Gratidão (Gratitude)", "Toda Sorte de Bençãos", "Jesus Meu Primeiro Amor", "Majestoso Deus + Nada Vai Roubar Tua Glória"],
   "1.7": ["Tudo é Diferente - Aline Barros"] 
 };
 

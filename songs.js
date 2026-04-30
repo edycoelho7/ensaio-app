@@ -64,9 +64,37 @@ export const SONGS = [
   { id: "22", title: "Canção que não envelhece", artist: "Julliany Souza - Lukas Agustinho", bpm: 135, timeSignature: "4/4", offset: 0.92, tom: "G#" },
   { id: "23", title: "Sou Grato Por Seu Amor", artist: "Get Worship", bpm: 144, timeSignature: "4/4", offset: 1.50, tom: "D" },
   { id: "24", title: "Mil Graus", artist: "Renascer Praise", bpm: 153, timeSignature: "4/4", offset: 1.70, tom: "C" },
-  { id: "25", title: "Salmos 126", artist: "Ministerio Zoe", bpm: 62, timeSignature: "4/4", offset: 1.90, tom: "A#" , ocultarMetronomo: true
-    },
-   { id: "26", title: "Tudo é diferente", artist: "Aline Barros", bpm: 120, timeSignature: "4/4", offset: 0.58, tom: "D" },
+  { id: "25", title: "Salmos 126", artist: "Ministerio Zoe", bpm: 62, timeSignature: "4/4", offset: 1.90, tom: "A#" , ocultarMetronomo: true },
+  { id: "26", title: "Tudo é diferente", artist: "Aline Barros", bpm: 120, timeSignature: "4/4", offset: 0.58, tom: "D" },
+  { id: "27", title: "Tudo é Perda + Tua Presença", artist: "Damaris Andrade", bpm: 126, timeSignature: "4/4", offset: 3.20, tom: "C#" },
+  { id: "28", title: "Em nome de Jesus", artist: "Aline Silva", bpm: 105, timeSignature: "4/4", offset: 0.450, tom: "C" },
+  { id: "29", title: "Deserto", artist: "LC 21", bpm: 150, timeSignature: "4/4", offset: 0.00, tom: "G" },
+  { id: "30", title: "Digno é o Senhor + Senhor e Rei", artist: "Vini Flores", bpm: 138, timeSignature: "4/4", offset: 1.05, tom: "E" ,
+    bpmMap:[
+    { time: 1.05, bpm: 138 },
+    { time: 322.80, bpm: 0.1 }
+    ]
+  },
+  { id: "31", title: "Quero Subir", artist: "Diante do Trono", bpm: 113, timeSignature: "4/4", offset: 3.80, tom: "C", 
+     bpmMap:[
+    { time: 3.80, bpm: 113 },
+    { time: 61.10, bpm: 113 },
+    { time: 133.30, bpm: 113 },
+    { time: 180.00, bpm: 113.1 },
+    { time: 226.70, bpm: 113.1 }
+    ]
+  },
+  { id: "32", title: "Santidade", artist: "Aline Barros", bpm: 132.1, timeSignature: "4/4", offset: 2.00, tom: "F#" ,
+     bpmMap:[
+    { time: 2.00, bpm: 132.1 },
+    { time: 34.70, bpm: 132},
+     ]
+  },
+  { id: "33", title: "Ser Reconhecido", artist: "Renascer Praise", bpm: 140, timeSignature: "3/4", offset: 4.35, tom: "A" },
+  { id: "34", title: "Gratidão (Gratitude)", artist: "Bruna Olly", bpm: 156, timeSignature: "6/8", offset: 0.88, tom: "E" },
+  { id: "35", title: "Toda Sorte de Bençãos", artist: "Davi Sacer", bpm: 140, timeSignature: "4/4", offset: 40.90, tom: "A" ,ocultarMetronomo: true},
+  { id: "36", title: "Jesus Meu Primeiro Amor", artist: "Fernanda Brum", bpm: 138, timeSignature: "4/4", offset: 0.50, tom: "B" },
+  { id: "37", title: "Majestoso Deus + Nada Vai Roubar Tua Glória", artist: "Davi Fernandes", bpm: 128, timeSignature: "4/4", offset: 0.70, tom: "A" , ocultarMetronomo: true
+       },
 
-    
 ];
