@@ -136,8 +136,8 @@ onAuthStateChanged(auth, (user) => {
 // --- SEU CÓDIGO ORIGINAL COMEÇA AQUI EMBAIXO ---
 
 // app/app.js
-import { SONGS } from '../songs.js?v=1.7';
-import { startAll, stopAll, togglePause, seekTo, setVozVolume, setPlaybackVolume, setMetroVolume, setTom, getDuration, getCurrentTime, unlockAudio } from './audio-engine.js?v=1.7';
+import { SONGS } from '../songs.js?v=1.8';
+import { startAll, stopAll, togglePause, seekTo, setVozVolume, setPlaybackVolume, setMetroVolume, setTom, getDuration, getCurrentTime, unlockAudio } from './audio-engine.js?v=1.8';
 
 // 🔴 NOVO: ELEMENTOS DA INTERFACE DAS ABAS E BUSCA
 const searchResultsEl = document.getElementById('searchResults');
@@ -188,8 +188,8 @@ let isDragging = false;
 // ==========================================
 // Digite aqui o título exato das músicas (como estão no songs.js) para aparecerem na aba Repertório
 const REPERTORIO_DO_DIA = [
-  "Algo Novo Vin",
-  "Gali",
+  "Tudo é diferente",
+  "Toda Terra (Ao Vivo)",
   "Digno de Tudo",
   "Ousado Amor"
 ];
@@ -241,7 +241,7 @@ if (tabBtnRepertorio && tabBtnRecentes) {
 
 if (btnAvisarGrupo) {
   btnAvisarGrupo.addEventListener('click', () => {
-    let texto = "*🗓️ Repertório do Culto - Domingo*\n\n";
+    let texto = "*🗓️ Repertório do Culto - Quinta*\n\n";
     const repertorioItems = REPERTORIO_DO_DIA.map(titulo => SONGS.find(s => s.title === titulo)).filter(Boolean);
     
     repertorioItems.forEach((s, index) => {
@@ -575,11 +575,11 @@ songSearchEl.addEventListener('input', () => {
 // ==========================================
 // LÓGICA DO POP-UP DE NOVIDADES
 // ==========================================
-const VERSAO_ATUAL_APP = "1.6"; 
+const VERSAO_ATUAL_APP = "1.7"; 
 
 const HISTORICO_NOVIDADES = {
   "1.6": ["Com Cristo e Vencer", "Em Tua Presença (Ao Vivo)", "Canção que não envelhece", "Sou Grato Por Seu Amor", "Mil Graus", "Salmos 126"],
-  "1.5": ["O Seu Amor por mim", "Tu és + Águas Purificadoras", "Jeová Jireh", "Escape", "Jesus e o Caminho (Ao Vivo)"] 
+  "1.7": ["Tudo é Diferente - Aline Barros"] 
 };
 
 function verificarNovasMusicas() {

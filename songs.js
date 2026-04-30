@@ -66,4 +66,7 @@ export const SONGS = [
   { id: "24", title: "Mil Graus", artist: "Renascer Praise", bpm: 153, timeSignature: "4/4", offset: 1.70, tom: "C" },
   { id: "25", title: "Salmos 126", artist: "Ministerio Zoe", bpm: 62, timeSignature: "4/4", offset: 1.90, tom: "A#" , ocultarMetronomo: true
     },
+   { id: "26", title: "Tudo é diferente", artist: "Aline Barros", bpm: 120, timeSignature: "4/4", offset: 0.58, tom: "D" },
+
+    
 ];
