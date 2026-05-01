@@ -188,8 +188,8 @@ let isDragging = false;
 // ==========================================
 // Digite aqui o título exato das músicas (como estão no songs.js) para aparecerem na aba Repertório
 const REPERTORIO_DO_DIA = [
-  "Tudo é diferente",
-  "Toda Terra (Ao Vivo)",
+  "Tudo é diferen",
+  "Toda Terra (Ao Vi",
   "Digno de Tudo",
   "Ousado Amor"
 ];
