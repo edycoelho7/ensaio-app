@@ -188,10 +188,10 @@ let isDragging = false;
 // ==========================================
 // Digite aqui o título exato das músicas (como estão no songs.js) para aparecerem na aba Repertório
 const REPERTORIO_DO_DIA = [
-  "Tudo é diferen",
-  "Toda Terra (Ao Vi",
-  "Digno de Tudo",
-  "Ousado Amor"
+  "Digno de Tudo + Te Exaltamos - Nivea",
+  "Alfa e Omega",
+  "Em nome de Jesus",
+  "Ousado A"
 ];
 
 function renderRepertorio() {
@@ -575,11 +575,11 @@ songSearchEl.addEventListener('input', () => {
 // ==========================================
 // LÓGICA DO POP-UP DE NOVIDADES
 // ==========================================
-const VERSAO_ATUAL_APP = "1.8"; 
+const VERSAO_ATUAL_APP = "1.9"; 
 
 const HISTORICO_NOVIDADES = {
   "1.8": ["Tudo É Perda + Tua Presença", "Em nome de Jesus", "Digno é o Senhor + Senhor e Rei", "Quero Subir", "Santidade", "Ser Reconhecido", "Gratidão (Gratitude)", "Toda Sorte de Bençãos", "Jesus Meu Primeiro Amor", "Majestoso Deus + Nada Vai Roubar Tua Glória"],
-  "1.7": ["Tudo é Diferente - Aline Barros"] 
+  "1.9": ["Digno de Tudo + Te Exaltamos — Nivea Soares", "Alfa e Omega — Julia Vitoria"] 
 };
 
 function verificarNovasMusicas() {

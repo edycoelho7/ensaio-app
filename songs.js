@@ -25,7 +25,7 @@ export const SONGS = [
     { time: 292.500, bpm: 1 }   
   ]
 },
-  { id: "7", title: "Digno de Tudo + Te Exaltamos", artist: "Felipe Rodrigues", bpm: 136, timeSignature: "4/4", offset: 1.42, tom: "C" },
+  { id: "7", title: "Digno de Tudo + Te Exaltamos - Felipe", artist: "Felipe Rodrigues", bpm: 136, timeSignature: "4/4", offset: 1.42, tom: "C" },
   { id: "8", title: "Jesus Filho de Deus + Nada Além do Sangue (Ao-Vivo)", artist: "Pedro Bertoldo", bpm: 132, timeSignature: "4/4", offset: 22.00, tom: "E", 
     ocultarMetronomo: true // <-- Adicionado aqui para desativar o metrônomo 
     },
@@ -95,6 +95,13 @@ export const SONGS = [
   { id: "35", title: "Toda Sorte de Bençãos", artist: "Davi Sacer", bpm: 140, timeSignature: "4/4", offset: 40.90, tom: "A" ,ocultarMetronomo: true},
   { id: "36", title: "Jesus Meu Primeiro Amor", artist: "Fernanda Brum", bpm: 138, timeSignature: "4/4", offset: 0.50, tom: "B" },
   { id: "37", title: "Majestoso Deus + Nada Vai Roubar Tua Glória", artist: "Davi Fernandes", bpm: 128, timeSignature: "4/4", offset: 0.70, tom: "A" , ocultarMetronomo: true
-       },
+  },
+  { id: "38", title: "Alfa e Omega", artist: "Julia Vitoria", bpm: 133, timeSignature: "4/4", offset: 1.95, tom: "C" ,
+    bpmMap:[
+    { time: 1.95, bpm: 133 },
+    { time: 225.00, bpm: 0.1},
+     ]
+    },
+  { id: "39", title: "Digno de Tudo + Te Exaltamos - Nivea", artist: "Nivea Soares", bpm: 140, timeSignature: "4/4", offset: 4.50, tom: "C" },
 
 ];
