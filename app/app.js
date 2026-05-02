@@ -241,7 +241,7 @@ if (tabBtnRepertorio && tabBtnRecentes) {
 
 if (btnAvisarGrupo) {
   btnAvisarGrupo.addEventListener('click', () => {
-    let texto = "*🗓️ Repertório do Culto - Quinta*\n\n";
+    let texto = "*🗓️ Repertório do Culto - Domingo*\n\n";
     const repertorioItems = REPERTORIO_DO_DIA.map(titulo => SONGS.find(s => s.title === titulo)).filter(Boolean);
     
     repertorioItems.forEach((s, index) => {
