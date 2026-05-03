@@ -188,9 +188,9 @@ let isDragging = false;
 // ==========================================
 // Digite aqui o título exato das músicas (como estão no songs.js) para aparecerem na aba Repertório
 const REPERTORIO_DO_DIA = [
-  "Digno de Tudo + Te Exaltamos - Felipe",
-  "Alfa e Omega",
-  "Em nome de Jesus",
+  "Digno de Tudo + Te Exaltamos - F",
+  "Alfa e O",
+  "Em nome de Je",
   "Ousado A"
 ];
 
