@@ -103,5 +103,18 @@ export const SONGS = [
      ]
     },
   { id: "39", title: "Digno de Tudo + Te Exaltamos - Nivea", artist: "Nivea Soares", bpm: 140, timeSignature: "4/4", offset: 4.50, tom: "C" },
-
+  { id: "40", title: "Agnus Dei", artist: "Guilherme Andrade", bpm: 136, timeSignature: "4/4", offset: 1.10, tom: "G",
+    bpmMap:[
+    { time: 1.10, bpm: 136 },
+    { time: 110.00, bpm: 136},
+     ]
+    },
+    { id: "42", title: "Jesus, O Plano Perfeito", artist: "Renascer Praise", bpm: 140, timeSignature: "4/4", offset: 5.00, tom: "E" },
+    { id: "41", title: "Tu És Poderoso (Ao Vivo)", artist: "Lukas Agustinho - Gabriela Rocha", bpm: 146, timeSignature: "3/4", offset: 0.70, tom: "F",
+      bpmMap:[
+    { time: 0.70, bpm: 146 },
+    { time: 300.00, bpm: 0.1},
+     ]
+    },
+    { id: "43", title: "Cristo", artist: "Alessandro Vilas Boas", bpm: 134, timeSignature: "4/4", offset: 3.00, tom: "G" },
 ];

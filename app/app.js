@@ -136,8 +136,8 @@ onAuthStateChanged(auth, (user) => {
 // --- SEU CÓDIGO ORIGINAL COMEÇA AQUI EMBAIXO ---
 
 // app/app.js
-import { SONGS } from '../songs.js?v=1.9';
-import { startAll, stopAll, togglePause, seekTo, setVozVolume, setPlaybackVolume, setMetroVolume, setTom, getDuration, getCurrentTime, unlockAudio } from './audio-engine.js?v=1.9';
+import { SONGS } from '../songs.js?v=1.901';
+import { startAll, stopAll, togglePause, seekTo, setVozVolume, setPlaybackVolume, setMetroVolume, setTom, getDuration, getCurrentTime, unlockAudio } from './audio-engine.js?v=1.901';
 
 // 🔴 NOVO: ELEMENTOS DA INTERFACE DAS ABAS E BUSCA
 const searchResultsEl = document.getElementById('searchResults');
@@ -188,10 +188,11 @@ let isDragging = false;
 // ==========================================
 // Digite aqui o título exato das músicas (como estão no songs.js) para aparecerem na aba Repertório
 const REPERTORIO_DO_DIA = [
-  "Digno de Tudo + Te Exaltamos - F",
-  "Alfa e O",
-  "Em nome de Je",
-  "Ousado A"
+  "Agnus Dei",
+  "Jesus, O Plano Perfeito",
+  "Sou Grato Por Seu Amor",
+  "Tu És Poderoso (Ao Vivo)",
+  "Cristo"
 ];
 
 function renderRepertorio() {
@@ -575,10 +576,10 @@ songSearchEl.addEventListener('input', () => {
 // ==========================================
 // LÓGICA DO POP-UP DE NOVIDADES
 // ==========================================
-const VERSAO_ATUAL_APP = "1.9"; 
+const VERSAO_ATUAL_APP = "1.901"; 
 
 const HISTORICO_NOVIDADES = {
-  "1.8": ["Tudo É Perda + Tua Presença", "Em nome de Jesus", "Digno é o Senhor + Senhor e Rei", "Quero Subir", "Santidade", "Ser Reconhecido", "Gratidão (Gratitude)", "Toda Sorte de Bençãos", "Jesus Meu Primeiro Amor", "Majestoso Deus + Nada Vai Roubar Tua Glória"],
+  "1.901": ["Agnus Dei | Guilherme Andrade | IPALPHA", "Renascer Praise - Jesus, O Plano Perfeito", "Lukas Agustinho, Gabriela Rocha - Tu És Poderoso (Ao Vivo)", "Cristo - Alessandro Vilas Boas"],
   "1.9": ["Digno de Tudo + Te Exaltamos — Nivea Soares", "Alfa e Omega — Julia Vitoria"] 
 };
 
