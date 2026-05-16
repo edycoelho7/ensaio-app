@@ -136,8 +136,8 @@ onAuthStateChanged(auth, (user) => {
 // --- SEU CÓDIGO ORIGINAL COMEÇA AQUI EMBAIXO ---
 
 // app/app.js
-import { SONGS } from '../songs.js?v=1.901';
-import { startAll, stopAll, togglePause, seekTo, setVozVolume, setPlaybackVolume, setMetroVolume, setTom, getDuration, getCurrentTime, unlockAudio } from './audio-engine.js?v=1.901';
+import { SONGS } from '../songs.js?v=1.902';
+import { startAll, stopAll, togglePause, seekTo, setVozVolume, setPlaybackVolume, setMetroVolume, setTom, getDuration, getCurrentTime, unlockAudio } from './audio-engine.js?v=2';
 
 // 🔴 NOVO: ELEMENTOS DA INTERFACE DAS ABAS E BUSCA
 const searchResultsEl = document.getElementById('searchResults');
@@ -188,11 +188,11 @@ let isDragging = false;
 // ==========================================
 // Digite aqui o título exato das músicas (como estão no songs.js) para aparecerem na aba Repertório
 const REPERTORIO_DO_DIA = [
-  "Agnus Dei",
-  "Jesus, O Plano Perfeito",
-  "Sou Grato Por Seu Amor",
-  "Tu És Poderoso (Ao Vivo)",
-  "Cristo"
+  "Um Novo D ",
+  "Jesus, O Plano Perfei",
+  "Sou Grato Por Seu A",
+  "Tu És Poderoso (Ao Vi",
+  "Cri"
 ];
 
 function renderRepertorio() {
