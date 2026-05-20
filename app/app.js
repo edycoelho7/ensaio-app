@@ -136,7 +136,7 @@ onAuthStateChanged(auth, (user) => {
 // --- SEU CÓDIGO ORIGINAL COMEÇA AQUI EMBAIXO ---
 
 // app/app.js
-import { SONGS } from '../songs.js?v=1.902';
+import { SONGS } from '../songs.js?v=1.903';
 import { startAll, stopAll, togglePause, seekTo, setVozVolume, setPlaybackVolume, setMetroVolume, setTom, getDuration, getCurrentTime, unlockAudio } from './audio-engine.js?v=2';
 
 // 🔴 NOVO: ELEMENTOS DA INTERFACE DAS ABAS E BUSCA
@@ -188,7 +188,7 @@ let isDragging = false;
 // ==========================================
 // Digite aqui o título exato das músicas (como estão no songs.js) para aparecerem na aba Repertório
 const REPERTORIO_DO_DIA = [
-  "Um Novo D ",
+  "Eis que Estou a Porta",
   "Jesus, O Plano Perfei",
   "Sou Grato Por Seu A",
   "Tu És Poderoso (Ao Vi",
@@ -576,10 +576,10 @@ songSearchEl.addEventListener('input', () => {
 // ==========================================
 // LÓGICA DO POP-UP DE NOVIDADES
 // ==========================================
-const VERSAO_ATUAL_APP = "1.901"; 
+const VERSAO_ATUAL_APP = "1.903"; 
 
 const HISTORICO_NOVIDADES = {
-  "1.901": ["Agnus Dei | Guilherme Andrade | IPALPHA", "Renascer Praise - Jesus, O Plano Perfeito", "Lukas Agustinho, Gabriela Rocha - Tu És Poderoso (Ao Vivo)", "Cristo - Alessandro Vilas Boas"],
+  "1.903": ["Eis que Estou a Porta — Fernandinho"],
   "1.9": ["Digno de Tudo + Te Exaltamos — Nivea Soares", "Alfa e Omega — Julia Vitoria"] 
 };
 

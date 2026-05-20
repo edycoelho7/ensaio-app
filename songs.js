@@ -117,4 +117,5 @@ export const SONGS = [
      ]
     },
     { id: "43", title: "Cristo", artist: "Alessandro Vilas Boas", bpm: 134, timeSignature: "4/4", offset: 3.00, tom: "G" },
+    { id: "44", title: "Eis que Estou a Porta", artist: "Fernandinho", bpm: 142, timeSignature: "4/4", offset: 4.10, tom: "A#" },
 ];
