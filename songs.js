@@ -109,7 +109,7 @@ export const SONGS = [
     { time: 110.00, bpm: 136},
      ]
     },
-    { id: "42", title: "Jesus, O Plano Perfeito", artist: "Renascer Praise", bpm: 140, timeSignature: "4/4", offset: 5.00, tom: "E" },
+    { id: "42", title: "Jesus, O Plano Perfeito", artist: "Renascer Praise", bpm: 140, timeSignature: "4/4", offset: 5.90, tom: "E" },
     { id: "41", title: "Tu És Poderoso (Ao Vivo)", artist: "Lukas Agustinho - Gabriela Rocha", bpm: 146, timeSignature: "3/4", offset: 0.70, tom: "F",
       bpmMap:[
     { time: 0.70, bpm: 146 },
