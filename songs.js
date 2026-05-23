@@ -118,4 +118,8 @@ export const SONGS = [
     },
     { id: "43", title: "Cristo", artist: "Alessandro Vilas Boas", bpm: 134, timeSignature: "4/4", offset: 3.00, tom: "G" },
     { id: "44", title: "Eis que Estou a Porta", artist: "Fernandinho", bpm: 142, timeSignature: "4/4", offset: 4.10, tom: "A#" },
+    { id: "45", title: "Estrela da manhã", artist: "Midian Lima", bpm: 124, timeSignature: "4/4", offset: 4.30, tom: "A#" },
+    { id: "46", title: "Medley Com Muito Louvor + Hino da Vitória + Tu És Deus (A Ele)", artist: "Joe Vasconcelos e Nívea Soares", bpm: 144, timeSignature: "4/4", offset: 13.40, tom: "G#" },
+
+
 ];
