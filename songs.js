@@ -120,6 +120,8 @@ export const SONGS = [
     { id: "44", title: "Eis que Estou a Porta", artist: "Fernandinho", bpm: 142, timeSignature: "4/4", offset: 4.10, tom: "A#" },
     { id: "45", title: "Estrela da manhã", artist: "Midian Lima", bpm: 124, timeSignature: "4/4", offset: 4.30, tom: "A#" },
     { id: "46", title: "Medley Com Muito Louvor + Hino da Vitória + Tu És Deus (A Ele)", artist: "Joe Vasconcelos e Nívea Soares", bpm: 144, timeSignature: "4/4", offset: 13.40, tom: "G#" },
+    { id: "47", title: "João Viu + Além do Rio Azul", artist: "Julia Vitória", bpm: 136, timeSignature: "4/4", offset: 0.70, tom: "F" },
+    { id: "48", title: "Quem é Ele", artist: "Rebeca Carvalho", bpm: 160, timeSignature: "3/4", offset: 3.50, tom: "E" },
 
 
 ];
