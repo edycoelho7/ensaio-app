@@ -136,7 +136,7 @@ onAuthStateChanged(auth, (user) => {
 // --- SEU CÓDIGO ORIGINAL COMEÇA AQUI EMBAIXO ---
 
 // app/app.js
-import { SONGS } from '../songs.js?v=1.905';
+import { SONGS } from '../songs.js?v=1.906';
 import { startAll, stopAll, togglePause, seekTo, setVozVolume, setPlaybackVolume, setMetroVolume, setTom, getDuration, getCurrentTime, unlockAudio } from './audio-engine.js?v=2';
 
 // 🔴 NOVO: ELEMENTOS DA INTERFACE DAS ABAS E BUSCA
@@ -188,9 +188,9 @@ let isDragging = false;
 // ==========================================
 // Digite aqui o título exato das músicas (como estão no songs.js) para aparecerem na aba Repertório
 const REPERTORIO_DO_DIA = [
-  "Eis que Estou a Porta",
-  "João Viu + Além do Rio Azul",
-  "Quem é Ele",
+  "Deus Tremendo",
+  "Grande é o Senhor",
+  "Canção que não envelhece",
   "Tu És Poderoso (Ao Vi",
   "Cri"
 ];
@@ -576,10 +576,10 @@ songSearchEl.addEventListener('input', () => {
 // ==========================================
 // LÓGICA DO POP-UP DE NOVIDADES
 // ==========================================
-const VERSAO_ATUAL_APP = "1.905"; 
+const VERSAO_ATUAL_APP = "1.906"; 
 
 const HISTORICO_NOVIDADES = {
-  "1.905": ["João Viu + Além do Rio Azul — Julia Vitória", "Quem é Ele - Rebeca Carvalho" ],
+  "1.906": ["Deus Tremendo — Worsheep", "Grande é o Senhor - Adhemar de Campos" ],
   "1.9": ["Digno de Tudo + Te Exaltamos — Nivea Soares", "Alfa e Omega — Julia Vitoria"] 
 };
 
