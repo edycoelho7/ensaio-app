@@ -124,5 +124,12 @@ export const SONGS = [
     { id: "48", title: "Quem é Ele", artist: "Rebeca Carvalho", bpm: 160, timeSignature: "3/4", offset: 3.50, tom: "E" },
     { id: "49", title: "Grande é o Senhor", artist: "Adhemar de Campos", bpm: 116, timeSignature: "4/4", offset: 0.00, tom: "A",ocultarMetronomo: true },
     { id: "51", title: "Deus Tremendo", artist: "Worsheep", bpm: 112, timeSignature: "4/4", offset: 1.35, tom: "F" },
+    { id: "52", title: "Me Ama", artist: "Get Worship", bpm: 152, timeSignature: "3/4", offset: 2.60, tom: "C" },
+    { id: "53", title: "Primavera", artist: "IIR Music", bpm: 134, timeSignature: "4/4", offset: 3.70, tom: "C" ,
+      bpmMap:[
+    { time: 3.70, bpm: 134 },
+    { time: 513.00, bpm: 0.1},
+      ]
+    },
 
 ];
