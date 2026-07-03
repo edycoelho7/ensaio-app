@@ -131,5 +131,6 @@ export const SONGS = [
     { time: 513.00, bpm: 0.1},
       ]
     },
+    { id: "54", title: "Adoramos o Cordeiro", artist: "Diante do Trono", bpm: 11, timeSignature: "4/4", offset: 54.30, tom: "D",ocultarMetronomo: true },
 
 ];

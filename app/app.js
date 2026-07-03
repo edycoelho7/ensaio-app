@@ -136,7 +136,7 @@ onAuthStateChanged(auth, (user) => {
 // --- SEU CÓDIGO ORIGINAL COMEÇA AQUI EMBAIXO ---
 
 // app/app.js
-import { SONGS } from '../songs.js?v=1.907';
+import { SONGS } from '../songs.js?v=1.908';
 import { startAll, stopAll, togglePause, seekTo, setVozVolume, setPlaybackVolume, setMetroVolume, setTom, getDuration, getCurrentTime, unlockAudio } from './audio-engine.js?v=2';
 
 // 🔴 NOVO: ELEMENTOS DA INTERFACE DAS ABAS E BUSCA
@@ -188,9 +188,9 @@ let isDragging = false;
 // ==========================================
 // Digite aqui o título exato das músicas (como estão no songs.js) para aparecerem na aba Repertório
 const REPERTORIO_DO_DIA = [
-  "Me Ama",
-  "Primavera",
-  "Um novo dia",
+  "Adoramos o Cordeiro",
+  "Gratidão (Gratitude)",
+  "Digno de Tudo + Te Exaltamos",
   "Tu És Poderoso (Ao Vi",
   "Cri"
 ];
@@ -576,10 +576,10 @@ songSearchEl.addEventListener('input', () => {
 // ==========================================
 // LÓGICA DO POP-UP DE NOVIDADES
 // ==========================================
-const VERSAO_ATUAL_APP = "1.907"; 
+const VERSAO_ATUAL_APP = "1.908"; 
 
 const HISTORICO_NOVIDADES = {
-  "1.907": ["Primavera — IIR Music", "Me Ama - Get Worship" ],
+  "1.907": ["Adoramos o Cordeiro — Diante do Trono"],
   "1.9": ["Digno de Tudo + Te Exaltamos — Nivea Soares", "Alfa e Omega — Julia Vitoria"] 
 };
 
