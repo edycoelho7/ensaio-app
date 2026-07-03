@@ -190,7 +190,7 @@ let isDragging = false;
 const REPERTORIO_DO_DIA = [
   "Adoramos o Cordeiro",
   "Gratidão (Gratitude)",
-  "Digno de Tudo + Te Exaltamos",
+  "Digno de Tudo + Te Exaltamos - Nivea",
   "Tu És Poderoso (Ao Vi",
   "Cri"
 ];
