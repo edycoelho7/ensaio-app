@@ -131,6 +131,14 @@ export const SONGS = [
     { time: 513.00, bpm: 0.1},
       ]
     },
-    { id: "54", title: "Adoramos o Cordeiro", artist: "Diante do Trono", bpm: 11, timeSignature: "4/4", offset: 54.30, tom: "D",ocultarMetronomo: true },
+    { id: "54", title: "Adoramos o Cordeiro", artist: "Diante do Trono", bpm: 110, timeSignature: "4/4", offset: 54.30, tom: "D",ocultarMetronomo: true },
+    { id: "57", title: "Hino da Vitoria", artist: "Cassiane", bpm: 140, timeSignature: "4/4", offset: 0.30, tom: "F",ocultarMetronomo: true },
+    { id: "58", title: "Teu amor Não Falha", artist: "Nivea Soares", bpm: 114, timeSignature: "4/4", offset: 1.70, tom: "C",
+    bpmMap:[
+    { time: 1.70, bpm: 114 },
+    { time: 360.00, bpm: 0.1},
+      ]  
+    },
+    { id: "59", title: "Vida as Sepulcros", artist: "Gabriela Rocha", bpm: 140, timeSignature: "3/4", offset: 5.30, tom: "E" },
 
 ];
