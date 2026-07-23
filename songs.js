@@ -140,5 +140,12 @@ export const SONGS = [
       ]  
     },
     { id: "59", title: "Vida as Sepulcros", artist: "Gabriela Rocha", bpm: 140, timeSignature: "3/4", offset: 5.30, tom: "E" },
+    { id: "60", title: "Oceanos", artist: "Ana Nobrega", bpm: 132, timeSignature: "4/4", offset: 0.25, tom: "D" ,
+    bpmMap:[
+    { time: 0.25, bpm: 132 },
+    { time: 187.70, bpm: 0.1},
+      ]   
+     },
+     { id: "61", title: "Medley Corinhos de fogo", artist: "Midian Lima", bpm: 140, timeSignature: "4/4", offset: 0.00, tom: "C" ,ocultarMetronomo: true},
 
 ];

@@ -136,7 +136,7 @@ onAuthStateChanged(auth, (user) => {
 // --- SEU CÓDIGO ORIGINAL COMEÇA AQUI EMBAIXO ---
 
 // app/app.js
-import { SONGS } from '../songs.js?v=1.910';
+import { SONGS } from '../songs.js?v=1.911';
 import { startAll, stopAll, togglePause, seekTo, setVozVolume, setPlaybackVolume, setMetroVolume, setTom, getDuration, getCurrentTime, unlockAudio } from './audio-engine.js?v=2';
 
 // 🔴 NOVO: ELEMENTOS DA INTERFACE DAS ABAS E BUSCA
@@ -188,10 +188,10 @@ let isDragging = false;
 // ==========================================
 // Digite aqui o título exato das músicas (como estão no songs.js) para aparecerem na aba Repertório
 const REPERTORIO_DO_DIA = [
-  "Hino da Vitoria",
-  "Teu amor Não Falha",
-  "Vida as Sepulcros",
-  "Tu És Poderoso (Ao Vi",
+  "Medley Corinhos de fogo",
+  "Galileu",
+  "Oceanos",
+  "Sobre as Aguas",
   "Cri"
 ];
 
@@ -576,10 +576,10 @@ songSearchEl.addEventListener('input', () => {
 // ==========================================
 // LÓGICA DO POP-UP DE NOVIDADES
 // ==========================================
-const VERSAO_ATUAL_APP = "1.910"; 
+const VERSAO_ATUAL_APP = "1.911"; 
 
 const HISTORICO_NOVIDADES = {
-  "1.910": ["Hino da Vitoria — Cassiane", "Teu amor Não Falha - Nivea Soares", "Vida as Sepulcros - Gabriela Rocha"],
+  "1.911": ["Oceanos — Ana Nobrega", "Medley Corinhos de fogo - Midian Lima"],
   "1.9": ["Digno de Tudo + Te Exaltamos — Nivea Soares", "Alfa e Omega — Julia Vitoria"] 
 };
 
