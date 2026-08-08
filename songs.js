@@ -147,5 +147,8 @@ export const SONGS = [
       ]   
      },
      { id: "61", title: "Medley Corinhos de fogo", artist: "Midian Lima", bpm: 140, timeSignature: "4/4", offset: 0.00, tom: "C" ,ocultarMetronomo: true},
+     { id: "62", title: "Tua Alegria", artist: "Drops INA", bpm: 130, timeSignature: "4/4", offset: 0.10, tom: "B" },
+     { id: "63", title: "Pode Morar Aqui", artist: "Theo Rubia", bpm: 134, timeSignature: "4/4", offset: 0.39, tom: "D#" },
+     { id: "64", title: "Tudo É Teu", artist: "Drops INA", bpm: 138, timeSignature: "4/4", offset: 0.08, tom: "A#" },
 
 ];
