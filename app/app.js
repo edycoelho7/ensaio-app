@@ -136,7 +136,7 @@ onAuthStateChanged(auth, (user) => {
 // --- SEU CÓDIGO ORIGINAL COMEÇA AQUI EMBAIXO ---
 
 // app/app.js
-import { SONGS } from '../songs.js?v=1.912';
+import { SONGS } from '../songs.js?v=1.913';
 import { startAll, stopAll, togglePause, seekTo, setVozVolume, setPlaybackVolume, setMetroVolume, setTom, getDuration, getCurrentTime, unlockAudio } from './audio-engine.js?v=2';
 
 // 🔴 NOVO: ELEMENTOS DA INTERFACE DAS ABAS E BUSCA
@@ -188,9 +188,9 @@ let isDragging = false;
 // ==========================================
 // Digite aqui o título exato das músicas (como estão no songs.js) para aparecerem na aba Repertório
 const REPERTORIO_DO_DIA = [
-  "Tua Alegria",
-  "Pode Morar Aqui",
-  "Tudo É Teu",
+  "Aquele que Está Feliz + Tempo de Festa",
+  "Alfa E Omega - Marine",
+  "Oceanos",
   "Sobre as Agu",
   "Cri"
 ];
@@ -576,10 +576,10 @@ songSearchEl.addEventListener('input', () => {
 // ==========================================
 // LÓGICA DO POP-UP DE NOVIDADES
 // ==========================================
-const VERSAO_ATUAL_APP = "1.912"; 
+const VERSAO_ATUAL_APP = "1.913"; 
 
 const HISTORICO_NOVIDADES = {
-  "1.912": ["Tua Alegria - Drops INA", "Pode Morar Aqui - Theo Rubia", "Tudo É Teu - Drops INA"],
+  "1.913": ["Alfa E Omega - Marine Friesen", "Aquele que Está Feliz + Tempo de Festa - Rafael Bechara"],
   "1.9": ["Digno de Tudo + Te Exaltamos — Nivea Soares", "Alfa e Omega — Julia Vitoria"] 
 };
 

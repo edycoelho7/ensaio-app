@@ -148,7 +148,14 @@ export const SONGS = [
      },
      { id: "61", title: "Medley Corinhos de fogo", artist: "Midian Lima", bpm: 140, timeSignature: "4/4", offset: 0.00, tom: "C" ,ocultarMetronomo: true},
      { id: "62", title: "Tua Alegria", artist: "Drops INA", bpm: 130, timeSignature: "4/4", offset: 0.10, tom: "B" },
-     { id: "63", title: "Pode Morar Aqui", artist: "Theo Rubia", bpm: 134, timeSignature: "4/4", offset: 0.39, tom: "D#" },
+     { id: "63", title: "Pode Morar Aqui", artist: "Theo Rubia", bpm: 134, timeSignature: "4/4", offset: 0.37, tom: "D#" },
      { id: "64", title: "Tudo É Teu", artist: "Drops INA", bpm: 138, timeSignature: "4/4", offset: 0.08, tom: "A#" },
+     { id: "65", title: "Aquele que Está Feliz + Tempo de Festa", artist: "Rafael Bechara", bpm: 155.0, timeSignature: "4/4", offset: 6.65, tom: "G" },
+     { id: "66", title: "Alfa E Omega - Marine", artist: "Marine Friesen", bpm: 146.0, timeSignature: "3/4", offset: 0.40, tom: "E" ,
+      bpmMap:[
+    { time: 0.40, bpm: 146 },
+    { time: 360.70, bpm: 0.1},
+      ]   
+     },
 
 ];
