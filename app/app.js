@@ -188,9 +188,9 @@ let isDragging = false;
 // ==========================================
 // Digite aqui o título exato das músicas (como estão no songs.js) para aparecerem na aba Repertório
 const REPERTORIO_DO_DIA = [
-  "Aquele que Está Feliz + Tempo de Festa",
-  "Alfa E Omega - Marine",
-  "Oceanos",
+  "O Espírito De Deus Está Aqui",
+  "Digno é o Senhor",
+  "Senhor e Rei",
   "Sobre as Agu",
   "Cri"
 ];
@@ -576,10 +576,10 @@ songSearchEl.addEventListener('input', () => {
 // ==========================================
 // LÓGICA DO POP-UP DE NOVIDADES
 // ==========================================
-const VERSAO_ATUAL_APP = "1.913"; 
+const VERSAO_ATUAL_APP = "1.914"; 
 
 const HISTORICO_NOVIDADES = {
-  "1.913": ["Alfa E Omega - Marine Friesen", "Aquele que Está Feliz + Tempo de Festa - Rafael Bechara"],
+  "1.914": ["O Espírito De Deus Está Aqui - Luciana Debortoli", "Digno é o Senhor - Aline Barros", "Senhor e Rei - Toque no Altar"],
   "1.9": ["Digno de Tudo + Te Exaltamos — Nivea Soares", "Alfa e Omega — Julia Vitoria"] 
 };
 

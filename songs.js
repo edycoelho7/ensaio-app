@@ -157,5 +157,9 @@ export const SONGS = [
     { time: 360.70, bpm: 0.1},
       ]   
      },
+     { id: "68", title: "O Espírito De Deus Está Aqui", artist: "Luciana Debortoli", bpm: 132.0, timeSignature: "4/4", offset: 4.00, tom: "G" },
+     { id: "69", title: "Digno é o Senhor", artist: "Aline Barros", bpm: 76.0, timeSignature: "4/4", offset: 2.10, tom: "G" },
+     { id: "67", title: "Senhor e Rei", artist: "Toque no Altar", bpm: 137.0, timeSignature: "4/4", offset: 0.40, tom: "A" , ocultarMetronomo: true 
+     },
 
 ];
