@@ -161,5 +161,10 @@ export const SONGS = [
      { id: "69", title: "Digno é o Senhor", artist: "Aline Barros", bpm: 76.0, timeSignature: "4/4", offset: 2.10, tom: "G" },
      { id: "67", title: "Senhor e Rei", artist: "Toque no Altar", bpm: 137.0, timeSignature: "4/4", offset: 0.40, tom: "A" , ocultarMetronomo: true 
      },
-
+     { id: "70", title: "Maravilhado", artist: "Nivea Soreas", bpm: 140.0, timeSignature: "4/4", offset: 2.90, tom: "F" , 
+      bpmMap:[
+    { time: 2.88, bpm: 140 },
+    { time: 85.15, bpm: 140},
+      ] 
+     },
 ];
