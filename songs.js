@@ -44,7 +44,7 @@ export const SONGS = [
   { id: "14", title: "Sobre as Aguas", artist: "Rapha Gonçalves", bpm: 166, timeSignature: "3/4", offset: 1.40, tom: "E"
   },
   { id: "15", title: "O Seu Amor por mim", artist: "Weslei Santos", bpm: 140, timeSignature: "6/8", offset: 81.10, tom: "F#" },
-  { id: "16", title: "Tu es + Aguas Purificadoras", artist: "Fhop Music", bpm: 142, timeSignature: "4/4", offset: 0.40, tom: "D" },
+  { id: "16", title: "Tu És + Aguas Purificadoras", artist: "Fhop Music", bpm: 142, timeSignature: "4/4", offset: 0.40, tom: "D" },
   { id: "17", title: "Jeová Jireh", artist: "Aline Barros", bpm: 134, timeSignature: "4/4", offset: 0.316, tom: "G" ,
     bpmMap:[
     { time: 0.316, bpm: 134 },
@@ -167,4 +167,6 @@ export const SONGS = [
     { time: 85.15, bpm: 140},
       ] 
      },
+     { id: "71", title: "Deus Tu és Santo", artist: "Danielle Cristina", bpm: 108.0, timeSignature: "4/4", offset: 20.60, tom: "F#" },
+     { id: "72", title: "A Boa Parte", artist: "Fhop", bpm: 144.0, timeSignature: "4/4", offset: 0.75, tom: "E" },
 ];

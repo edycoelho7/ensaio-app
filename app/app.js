@@ -136,7 +136,7 @@ onAuthStateChanged(auth, (user) => {
 // --- SEU CÓDIGO ORIGINAL COMEÇA AQUI EMBAIXO ---
 
 // app/app.js
-import { SONGS } from '../songs.js?v=1.915';
+import { SONGS } from '../songs.js?v=1.916';
 import { startAll, stopAll, togglePause, seekTo, setVozVolume, setPlaybackVolume, setMetroVolume, setTom, getDuration, getCurrentTime, unlockAudio } from './audio-engine.js?v=2';
 
 // 🔴 NOVO: ELEMENTOS DA INTERFACE DAS ABAS E BUSCA
@@ -188,9 +188,9 @@ let isDragging = false;
 // ==========================================
 // Digite aqui o título exato das músicas (como estão no songs.js) para aparecerem na aba Repertório
 const REPERTORIO_DO_DIA = [
-  "Jeová Jireh",
-  "Tua Alegria",
-  "Maravilhado",
+  "Deus Tu és Santo",
+  "A Boa Parte",
+  "Aquele que Está Feliz + Tempo de Festa",
   "Sobre as Agu",
   "Cri"
 ];
@@ -576,10 +576,10 @@ songSearchEl.addEventListener('input', () => {
 // ==========================================
 // LÓGICA DO POP-UP DE NOVIDADES
 // ==========================================
-const VERSAO_ATUAL_APP = "1.915"; 
+const VERSAO_ATUAL_APP = "1.916"; 
 
 const HISTORICO_NOVIDADES = {
-  "1.915": ["Maravilhado - Nivea Soares"],
+  "1.916": ["A Boa Parte - Fhop", "Deus Tu és Santo - Danielle Cristina"],
   "1.9": ["Digno de Tudo + Te Exaltamos — Nivea Soares", "Alfa e Omega — Julia Vitoria"] 
 };
 
