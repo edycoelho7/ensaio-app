@@ -188,9 +188,9 @@ let isDragging = false;
 // ==========================================
 // Digite aqui o título exato das músicas (como estão no songs.js) para aparecerem na aba Repertório
 const REPERTORIO_DO_DIA = [
-  "Deus Tu és Santo",
-  "A Boa Parte",
-  "Aquele que Está Feliz + Tempo de Festa",
+  "O Fogo Arderá",
+  "A Boa Par",
+  "Aquele que Está Fz + Tempo de Festa",
   "Sobre as Agu",
   "Cri"
 ];
@@ -576,10 +576,10 @@ songSearchEl.addEventListener('input', () => {
 // ==========================================
 // LÓGICA DO POP-UP DE NOVIDADES
 // ==========================================
-const VERSAO_ATUAL_APP = "1.916"; 
+const VERSAO_ATUAL_APP = "1.917"; 
 
 const HISTORICO_NOVIDADES = {
-  "1.916": ["A Boa Parte - Fhop", "Deus Tu és Santo - Danielle Cristina"],
+  "1.916": ["O Fogo Arderá - Alexsander Lúcio"],
   "1.9": ["Digno de Tudo + Te Exaltamos — Nivea Soares", "Alfa e Omega — Julia Vitoria"] 
 };
 

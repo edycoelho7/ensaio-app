@@ -169,4 +169,5 @@ export const SONGS = [
      },
      { id: "71", title: "Deus Tu és Santo", artist: "Danielle Cristina", bpm: 108.0, timeSignature: "4/4", offset: 20.60, tom: "F#" },
      { id: "72", title: "A Boa Parte", artist: "Fhop", bpm: 144.0, timeSignature: "4/4", offset: 0.75, tom: "E" },
+     { id: "73", title: "O Fogo Arderá", artist: "Alexsander Lúcio", bpm: 130.0, timeSignature: "4/4", offset: 7.45, tom: "C" },
 ];
