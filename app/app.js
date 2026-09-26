@@ -579,7 +579,7 @@ songSearchEl.addEventListener('input', () => {
 const VERSAO_ATUAL_APP = "1.917"; 
 
 const HISTORICO_NOVIDADES = {
-  "1.916": ["O Fogo Arderá - Alexsander Lúcio"],
+  "1.917": ["O Fogo Arderá - Alexsander Lúcio"],
   "1.9": ["Digno de Tudo + Te Exaltamos — Nivea Soares", "Alfa e Omega — Julia Vitoria"] 
 };
 
