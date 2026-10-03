@@ -136,7 +136,7 @@ onAuthStateChanged(auth, (user) => {
 // --- SEU CÓDIGO ORIGINAL COMEÇA AQUI EMBAIXO ---
 
 // app/app.js
-import { SONGS } from '../songs.js?v=1.916';
+import { SONGS } from '../songs.js?v=1.918';
 import { startAll, stopAll, togglePause, seekTo, setVozVolume, setPlaybackVolume, setMetroVolume, setTom, getDuration, getCurrentTime, unlockAudio } from './audio-engine.js?v=2';
 
 // 🔴 NOVO: ELEMENTOS DA INTERFACE DAS ABAS E BUSCA
@@ -188,9 +188,9 @@ let isDragging = false;
 // ==========================================
 // Digite aqui o título exato das músicas (como estão no songs.js) para aparecerem na aba Repertório
 const REPERTORIO_DO_DIA = [
-  "O Fogo Arderá",
-  "A Boa Par",
-  "Aquele que Está Fz + Tempo de Festa",
+  "Jireh",
+  "Tua Alegria",
+  "Digno de Tudo + Te Exaltamos - Felipe",
   "Sobre as Agu",
   "Cri"
 ];
@@ -576,10 +576,10 @@ songSearchEl.addEventListener('input', () => {
 // ==========================================
 // LÓGICA DO POP-UP DE NOVIDADES
 // ==========================================
-const VERSAO_ATUAL_APP = "1.917"; 
+const VERSAO_ATUAL_APP = "1.918"; 
 
 const HISTORICO_NOVIDADES = {
-  "1.917": ["O Fogo Arderá - Alexsander Lúcio"],
+  "1.918": ["Jireh - Nivea Soares"],
   "1.9": ["Digno de Tudo + Te Exaltamos — Nivea Soares", "Alfa e Omega — Julia Vitoria"] 
 };
 

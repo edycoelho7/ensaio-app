@@ -119,7 +119,7 @@ export const SONGS = [
     { id: "43", title: "Cristo", artist: "Alessandro Vilas Boas", bpm: 134, timeSignature: "4/4", offset: 3.00, tom: "G" },
     { id: "44", title: "Eis que Estou a Porta", artist: "Fernandinho", bpm: 142, timeSignature: "4/4", offset: 4.10, tom: "A#" },
     { id: "45", title: "Estrela da manhã", artist: "Midian Lima", bpm: 124, timeSignature: "4/4", offset: 4.30, tom: "A#" },
-    { id: "46", title: "Medley Com Muito Louvor + Hino da Vitória + Tu És Deus (A Ele)", artist: "Joe Vasconcelos e Nívea Soares", bpm: 144, timeSignature: "4/4", offset: 13.40, tom: "G#" },
+    { id: "46", title: "Medley Com Muito Louvor + Hino da Vitória + Tu És Deus (A Ele)", artist: "Joe Vasconcelos e Nivea Soares", bpm: 144, timeSignature: "4/4", offset: 13.40, tom: "G#" },
     { id: "47", title: "João Viu + Além do Rio Azul", artist: "Julia Vitória", bpm: 136, timeSignature: "4/4", offset: 0.70, tom: "F" },
     { id: "48", title: "Quem é Ele", artist: "Rebeca Carvalho", bpm: 160, timeSignature: "3/4", offset: 3.50, tom: "E" },
     { id: "49", title: "Grande é o Senhor", artist: "Adhemar de Campos", bpm: 116, timeSignature: "4/4", offset: 0.00, tom: "A",ocultarMetronomo: true },
@@ -161,7 +161,7 @@ export const SONGS = [
      { id: "69", title: "Digno é o Senhor", artist: "Aline Barros", bpm: 76.0, timeSignature: "4/4", offset: 2.10, tom: "G" },
      { id: "67", title: "Senhor e Rei", artist: "Toque no Altar", bpm: 137.0, timeSignature: "4/4", offset: 0.40, tom: "A" , ocultarMetronomo: true 
      },
-     { id: "70", title: "Maravilhado", artist: "Nivea Soreas", bpm: 140.0, timeSignature: "4/4", offset: 2.90, tom: "F" , 
+     { id: "70", title: "Maravilhado", artist: "Nivea Soares", bpm: 140.0, timeSignature: "4/4", offset: 2.90, tom: "F" , 
       bpmMap:[
     { time: 2.88, bpm: 140 },
     { time: 85.15, bpm: 140},
@@ -170,4 +170,5 @@ export const SONGS = [
      { id: "71", title: "Deus Tu és Santo", artist: "Danielle Cristina", bpm: 108.0, timeSignature: "4/4", offset: 20.60, tom: "F#" },
      { id: "72", title: "A Boa Parte", artist: "Fhop", bpm: 144.0, timeSignature: "4/4", offset: 0.75, tom: "E" },
      { id: "73", title: "O Fogo Arderá", artist: "Alexsander Lúcio", bpm: 130.0, timeSignature: "4/4", offset: 7.45, tom: "C" },
+     { id: "74", title: "Jireh", artist: "Nivea Soares", bpm: 140.0, timeSignature: "4/4", offset: 2.24, tom: "D" },
 ];
