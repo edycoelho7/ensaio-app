@@ -171,4 +171,6 @@ export const SONGS = [
      { id: "72", title: "A Boa Parte", artist: "Fhop", bpm: 144.0, timeSignature: "4/4", offset: 0.75, tom: "E" },
      { id: "73", title: "O Fogo Arderá", artist: "Alexsander Lúcio", bpm: 130.0, timeSignature: "4/4", offset: 7.45, tom: "C" },
      { id: "74", title: "Jireh", artist: "Nivea Soares", bpm: 140.0, timeSignature: "4/4", offset: 2.24, tom: "D" },
+     { id: "75", title: "Sou Livre", artist: "Renascer Praise", bpm: 118.0, timeSignature: "4/4", offset: 1.95, tom: "D" },
+     { id: "76", title: "Terceiro Dia", artist: "Aline Barros", bpm: 144.0, timeSignature: "4/4", offset: 3.88, tom: "F" },
 ];
