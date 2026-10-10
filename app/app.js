@@ -136,7 +136,7 @@ onAuthStateChanged(auth, (user) => {
 // --- SEU CÓDIGO ORIGINAL COMEÇA AQUI EMBAIXO ---
 
 // app/app.js
-import { SONGS } from '../songs.js?v=1.919';
+import { SONGS } from '../songs.js?v=1.920';
 import { startAll, stopAll, togglePause, seekTo, setVozVolume, setPlaybackVolume, setMetroVolume, setTom, getDuration, getCurrentTime, unlockAudio } from './audio-engine.js?v=2';
 
 // 🔴 NOVO: ELEMENTOS DA INTERFACE DAS ABAS E BUSCA
@@ -191,7 +191,7 @@ const REPERTORIO_DO_DIA = [
   "Sou Livre",
   "Digno é o Senhor + Senhor e Rei",
   "Digno de Tudo + Te Exaltamos - Felipe",
-  "Agnus Dei",
+  "Agnus Dei - Gabriela Rocha",
   "Cri"
 ];
 
@@ -580,10 +580,10 @@ songSearchEl.addEventListener('input', () => {
 // ==========================================
 // LÓGICA DO POP-UP DE NOVIDADES
 // ==========================================
-const VERSAO_ATUAL_APP = "1.919"; 
+const VERSAO_ATUAL_APP = "1.920"; 
 
 const HISTORICO_NOVIDADES = {
-  "1.918": ["Sou Livre - Renascer Praise", "Terceiro Dia - Aline Barros"],
+  "1.920": ["Sou Livre - Renascer Praise", "Terceiro Dia - Aline Barros", "Agnus Dei - Gabriela Rocha"],
   "1.9": ["Digno de Tudo + Te Exaltamos — Nivea Soares", "Alfa e Omega — Julia Vitoria"] 
 };
 
