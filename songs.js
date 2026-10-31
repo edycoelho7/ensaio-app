@@ -170,7 +170,7 @@ export const SONGS = [
      { id: "71", title: "Deus Tu és Santo", artist: "Danielle Cristina", bpm: 108.0, timeSignature: "4/4", offset: 20.60, tom: "F#" },
      { id: "72", title: "A Boa Parte", artist: "Fhop", bpm: 144.0, timeSignature: "4/4", offset: 0.75, tom: "E" },
      { id: "73", title: "O Fogo Arderá", artist: "Alexsander Lúcio", bpm: 130.0, timeSignature: "4/4", offset: 7.45, tom: "C" },
-     { id: "74", title: "Jireh", artist: "Nivea Soares", bpm: 140.0, timeSignature: "4/4", offset: 2.24, tom: "D" },
+     { id: "74", title: "Jireh - Nivea", artist: "Nivea Soares", bpm: 140.0, timeSignature: "4/4", offset: 2.24, tom: "D" },
      { id: "75", title: "Sou Livre", artist: "Renascer Praise", bpm: 118.0, timeSignature: "4/4", offset: 1.95, tom: "D" },
      { id: "76", title: "Terceiro Dia", artist: "Aline Barros", bpm: 144.0, timeSignature: "4/4", offset: 3.88, tom: "F" },
      { id: "77", title: "Agnus Dei - Gabriela Rocha", artist: "Gabriela Rocha", bpm: 136.0, timeSignature: "4/4", offset: 3.23, tom: "G",
@@ -179,4 +179,8 @@ export const SONGS = [
     { time: 223.70, bpm: 0.1},
       ] 
       },
+     { id: "78", title: "Quem é Esse", artist: "Julliany Souza", bpm: 124.0, timeSignature: "4/4", offset: 2.15, tom: "F#" },
+     { id: "79", title: "Vida", artist: "Bianca Azevedo", bpm: 144.0, timeSignature: "4/4", offset: 0.05, tom: "G" }, 
+     { id: "80", title: "O Nosso General É Cristo", artist: "Comunidade Zona Sul", bpm: 147.5, timeSignature: "4/4", offset: 0.40, tom: "C", ocultarMetronomo: true },  
+     { id: "81", title: "Jireh - Get", artist: "Get Worship", bpm: 140.0, timeSignature: "4/4", offset: 2.00, tom: "D#" }
 ];

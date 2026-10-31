@@ -50,6 +50,7 @@ h1 { font-size: 22px; margin: 0; }
 .divider { border: none; height: 1px; background: var(--border); margin: 12px 0 0; }
 
 /* Lista (abaixo da busca) */
+/* Lista (abaixo da busca) */
 .list { list-style: none; margin: 8px 0 0; padding: 0; }
 .list li {
   padding: 12px 14px; border: 1px solid var(--border);
@@ -107,7 +108,9 @@ input[type="text"]:focus {
 
 /* Slider básico */
 .slider {
-  -webkit-appearance: none; width: 100%; height: 28px; background: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%; height: 28px; background: transparent;
 }
 
 /* Rodapé */
@@ -128,7 +131,8 @@ input[type=range].slider::-moz-range-track {
 
 /* Bolinha da barra (Azul claro brilhante) */
 input[type=range].slider::-webkit-slider-thumb {
-  -webkit-appearance: none; 
+  -webkit-appearance: none;
+  appearance: none;
   width: 18px; height: 18px; border-radius: 50%;
   background: var(--primary-2);
   margin-top: -6px; /* Alinha a bolinha com o trilho */
@@ -254,4 +258,543 @@ input[type=range].slider::-moz-range-thumb {
 .btn-whatsapp:hover, .btn-whatsapp:active {
   background: rgba(0, 180, 216, 0.1);
   box-shadow: 0 0 8px rgba(0, 180, 216, 0.2);
+}
+
+/* --- MINI-PLAYER FIXO --- */
+body {
+  padding-bottom: 90px; /* Garante que a lista não fica escondida atrás do player */
+}
+
+.mini-player {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(10, 17, 34, 0.95);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--border);
+  padding: 10px 16px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1000;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
+}
+
+.mini-player-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  overflow: hidden; /* Evita que nomes longos quebrem o layout */
+}
+
+.cover-img {
+  width: 44px;
+  height: 44px;
+  border-radius: 6px;
+  object-fit: cover;
+  background-color: var(--border);
+}
+
+.mini-text {
+  display: flex;
+  flex-direction: column;
+  white-space: nowrap;
+}
+
+.title-song-mini { 
+  font-weight: 700; 
+  font-size: 15px; 
+  color: var(--text); 
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.muted-mini { 
+  font-size: 13px; 
+  color: var(--muted); 
+}
+
+.mini-player-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Botões redondos estilo Spotify */
+.round-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Barra de progresso simplificada */
+.mini-slider {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  margin: 0;
+}
+
+/* Esconde a bolinha da barra no mini-player para ficar mais limpo *//*
+.mini-player .mini-slider::-webkit-slider-thumb { display: none; }*//*
+.mini-player .mini-slider::-moz-range-thumb { display: none; } */
+
+.mini-player .mini-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  width: 12px; 
+  height: 12px; 
+  border-radius: 50%;
+  background: var(--primary-2);
+  margin-top: -4px;
+}
+
+.mini-player .mini-slider::-moz-range-thumb {
+  appearance: none;
+  display: block;
+  width: 12px; 
+  height: 12px; 
+  border-radius: 50%;
+  background: var(--primary-2);
+  border: none;
+}
+
+/* --- PAINEL EXPANDIDO (MIXER E PLAY) --- */
+.player-expandido {
+  position: fixed;
+  top: 0; /* Alinha no topo verdadeiro da tela */
+  left: 0;
+  width: 100%;
+  height: 100%; /* Respeita a altura real do celular, evitando cortar elementos */
+  background: linear-gradient(180deg, #0a1122 0%, #030814 100%);
+  z-index: 2000;
+  /* Aumentamos o padding do topo para 40px para proteger do entalhe/câmera do celular */
+  padding: 40px 20px 120px; 
+  overflow-y: auto;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  display: flex;
+  flex-direction: column;
+  transform: translateY(100%); /* Mantém escondido abaixo da tela */
+}
+
+/* Classe que será ativada via JS para fazer o painel subir */
+.player-expandido.aberto {
+  transform: translateY(0); /* Encaixa perfeitamente na tela */
+}
+
+.header-expandido {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.btn-icon {
+  background: transparent;
+  border: none;
+  color: white;
+  padding: 0;
+  cursor: pointer;
+}
+
+.titulo-expandido {
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.capa-expandida-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.cover-img-large {
+  width: 250px;
+  height: 250px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  background-color: var(--border);
+}
+
+.mixer-card {
+  background: rgba(17, 30, 56, 0.4);
+  border: 1px solid rgba(0, 180, 216, 0.1);
+}
+/* ==========================================
+   CARROSSÉIS ESTILO SPOTIFY (FORÇAR VISUAL)
+   Cole isso no final do seu style.css
+========================================== */
+
+/* 1. Remove o fundo do "cartão" para as músicas flutuarem no fundo escuro */
+#tela-principal .card {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+/* 2. Força a lista a rolar de lado no dedo */
+ul.list { 
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  gap: 16px !important;
+  padding: 0 0 16px 0 !important;
+  margin: 16px 0 0 !important;
+  list-style: none !important;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+ul.list::-webkit-scrollbar {
+  display: none !important;
+}
+
+/* 3. O quadrado de cada música (tamanho perfeito pro celular) */
+ul.list li {
+  flex: 0 0 130px !important; /* Largura do quadrado */
+  width: 130px !important;
+  max-width: 130px !important;
+  display: flex !important;
+  flex-direction: column !important; /* Força o texto pra debaixo da imagem */
+  align-items: flex-start !important;
+  padding: 0 !important; /* Tira o preenchimento pra imagem colar nas bordas */
+  border: none !important; /* Tira aquela borda feia */
+  border-radius: 8px !important;
+  background: transparent !important; 
+  cursor: pointer;
+}
+
+ul.list li:hover, ul.list li:focus { 
+  background: transparent !important; 
+  opacity: 0.8;
+}
+
+/* 4. A Imagem Quadrada da Capa */
+ul.list li img {
+  width: 130px !important;
+  height: 130px !important;
+  object-fit: cover !important;
+  border-radius: 8px !important;
+  margin-bottom: 12px !important;
+  background-color: #111e38 !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4) !important;
+}
+
+/* 5. Título da música e Artista */
+.list-title-text {
+  font-weight: 700 !important;
+  font-size: 14px !important;
+  color: #ffffff !important;
+  text-align: left !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 1 !important; /* Corta com "..." se for muito grande */
+  line-clamp: 1 !important; /* Adicione esta linha aqui */
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  margin-bottom: 4px !important;
+  width: 100% !important;
+}
+
+.list-artist-text {
+  font-size: 12px !important;
+  color: #7d93b3 !important;
+  text-align: left !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  width: 100% !important;
+}
+/* ==========================================
+   BOTÕES DE TOM (+ e -)
+========================================== */
+.btn-key {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: #111e38;
+  color: white;
+  border: 1px solid var(--border);
+  font-size: 28px;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none; /* Evita selecionar o texto ao tocar rápido na tela */
+  -webkit-tap-highlight-color: transparent; /* Tira o brilho azul nativo do celular */
+}
+
+.btn-key:active {
+  background: var(--primary);
+  color: #030814;
+  transform: scale(0.92); /* Efeito de afundar quando aperta */
+}
+/* ==========================================
+   CONTROLES GRANDES E ÍCONES DO MIXER
+========================================== */
+.player-controls-large {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  margin: 10px 0 24px; /* Espaço em cima e embaixo */
+}
+
+.round-btn-large {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-shadow: 0 8px 24px rgba(0, 180, 216, 0.4);
+}
+
+.mixer-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--muted);
+}
+/* ==========================================
+   HEADER ESTILO SPOTIFY
+========================================== */
+.header-spotify {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px 16px 16px 16px; /* Mais espaço no topo do celular */
+  background: transparent;
+}
+
+.saudacao-titulo {
+  font-size: 24px;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.avatar-spotify {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid transparent;
+}
+/* ==========================================
+   MENU DE NAVEGAÇÃO INFERIOR (BOTTOM NAV)
+========================================== */
+/* Empurra o Mini-Player para cima para dar espaço ao Menu */
+.mini-player {
+  bottom: 64px !important; 
+}
+
+/* Dá espaço extra no final da página para as músicas não ficarem escondidas */
+body {
+  padding-bottom: 150px !important; 
+}
+
+/* Estilo da Barra Inferior */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 64px;
+  background: rgba(3, 8, 20, 0.98); /* Fundo escuro levemente transparente */
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 1000;
+  padding-bottom: env(safe-area-inset-bottom); /* Proteção para a barrinha do iPhone */
+}
+
+.nav-item {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s;
+  padding: 8px 12px;
+}
+
+/* Quando o botão está selecionado */
+.nav-item.active {
+  color: white;
+}
+
+.nav-item svg {
+  transition: transform 0.2s;
+}
+
+.nav-item.active svg {
+  transform: scale(1.1); /* Dá um pequeno zoom no ícone ativo */
+}
+/* Esconde as abas antigas do meio do ecrã */
+.tabs-container {
+  display: none !important;
+}
+/* Remove o botão de Stop do Mini-Player para um visual mais moderno */
+#stopBtn {
+  display: none !important;
+}
+/* ==========================================
+   CARROSSEL DE ARTISTAS
+========================================== */
+.artist-row::-webkit-scrollbar {
+  display: none;
+}
+.artist-row {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+/* ==========================================
+   LISTA COMPACTA (Estilo Busca do Spotify)
+========================================== */
+ul.list-compact {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+ul.list-compact li {
+  display: flex;
+  align-items: center;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 6px;
+  transition: background 0.2s;
+  /* Reseta configurações que possam vir do ul.list */
+  width: 100% !important;
+  max-width: none !important;
+  border: none !important;
+}
+
+ul.list-compact li:hover, ul.list-compact li:focus {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Imagem quadrada e pequena na esquerda */
+ul.list-compact li img {
+  width: 50px !important;
+  height: 50px !important;
+  border-radius: 4px !important;
+  object-fit: cover !important;
+  margin-right: 12px !important;
+  margin-bottom: 0 !important; /* Remove a margem do carrossel */
+  box-shadow: none !important;
+}
+
+/* Container dos textos */
+.list-compact-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+.list-compact-title {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+}
+
+.list-compact-artist {
+  color: #b3b3b3;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ==========================================
+   LISTAS COMPACTAS (BUSCA E ARTISTA)
+========================================== */
+.list-compact {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  list-style: none !important;
+}
+
+.list-compact li {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  width: 100% !important;
+  padding: 10px 0 !important;
+  margin-bottom: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  border: none !important;
+  cursor: pointer;
+}
+
+.list-compact li img {
+  width: 48px !important;
+  height: 48px !important;
+  margin-bottom: 0 !important;
+  margin-right: 12px !important;
+  border-radius: 4px !important;
+  object-fit: cover !important;
+  box-shadow: none !important;
+}
+
+.list-compact-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  overflow: hidden;
+}
+
+.list-compact-title {
+  font-weight: 700;
+  font-size: 16px;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.list-compact-artist {
+  font-size: 13px;
+  color: #7d93b3;
 }
