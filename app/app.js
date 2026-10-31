@@ -292,20 +292,27 @@ if (btnAvisarGrupo) {
 // ==========================================
 // ESCALA MUSICAL PARA O TOM
 // ==========================================
-const escalaSubindo = ['Do(C)', 'Do(C)#', 'Re(D)', 'Re(D)#', 'Mi(E)', 'Fa(F)', 'Fa(F)#', 'Sol(G)', 'Sol(G)#', 'La(A)', 'La(A)#', 'Si(B)'];
-const escalaDescendo = ['Do(C)', 'Re(D)b', 'Re(D)', 'Mi(E)b', 'Mi(E)', 'Fa(F)', 'Sol(G)b', 'Sol(G)', 'La(A)b', 'La(A)', 'Si(B)b', 'Si(B)'];
+// Escalas apenas para a matemática (iguais ao que está no songs.js)
+const escalaMatematicaSubindo = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+const escalaMatematicaDescendo = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
+
+// Escalas apenas para a tela (o formato híbrido)
+const escalaVisualSubindo = ['Do(C)', 'Do(C)#', 'Re(D)', 'Re(D)#', 'Mi(E)', 'Fa(F)', 'Fa(F)#', 'Sol(G)', 'Sol(G)#', 'La(A)', 'La(A)#', 'Si(B)'];
+const escalaVisualDescendo = ['Do(C)', 'Re(D)b', 'Re(D)', 'Mi(E)b', 'Mi(E)', 'Fa(F)', 'Sol(G)b', 'Sol(G)', 'La(A)b', 'La(A)', 'Si(B)b', 'Si(B)'];
 
 function calcularNovaCifra(tomOriginal, semitonsAdicionados) {
   if (!tomOriginal || tomOriginal === '-') return '-';
 
-  let index = escalaSubindo.indexOf(tomOriginal);
-  if (index === -1) index = escalaDescendo.indexOf(tomOriginal);
+  // Faz a busca usando a escala matemática original
+  let index = escalaMatematicaSubindo.indexOf(tomOriginal);
+  if (index === -1) index = escalaMatematicaDescendo.indexOf(tomOriginal);
   if (index === -1) return tomOriginal; 
 
   let novoIndex = (index + semitonsAdicionados) % 12;
   if (novoIndex < 0) novoIndex += 12; 
 
-  return semitonsAdicionados >= 0 ? escalaSubindo[novoIndex] : escalaDescendo[novoIndex];
+  // Retorna o resultado usando a escala visual (híbrida)
+  return semitonsAdicionados >= 0 ? escalaVisualSubindo[novoIndex] : escalaVisualDescendo[novoIndex];
 }
 
 function updateTomUI() {
@@ -673,10 +680,10 @@ songSearchEl.addEventListener('input', () => {
 // ==========================================
 // LÓGICA DO POP-UP DE NOVIDADES
 // ==========================================
-const VERSAO_ATUAL_APP = "1.924"; 
+const VERSAO_ATUAL_APP = "1.925"; 
 
 const HISTORICO_NOVIDADES = {
-  "1.924": ["Jireh - Get Worship"],
+  "1.925": ["Jireh - Get Worship"],
   "1.9": ["Digno de Tudo + Te Exaltamos — Nivea Soares", "Alfa e Omega — Julia Vitoria"] 
 };
 
