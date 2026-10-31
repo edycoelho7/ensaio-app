@@ -182,5 +182,8 @@ export const SONGS = [
      { id: "78", title: "Quem é Esse", artist: "Julliany Souza", bpm: 124.0, timeSignature: "4/4", offset: 2.15, tom: "F#" },
      { id: "79", title: "Vida", artist: "Bianca Azevedo", bpm: 144.0, timeSignature: "4/4", offset: 0.05, tom: "G" }, 
      { id: "80", title: "O Nosso General É Cristo", artist: "Comunidade Zona Sul", bpm: 147.5, timeSignature: "4/4", offset: 0.40, tom: "C", ocultarMetronomo: true },  
+<<<<<<< HEAD
      { id: "81", title: "Jireh - Get", artist: "Get Worship", bpm: 140.0, timeSignature: "4/4", offset: 2.00, tom: "D#" }
+=======
+>>>>>>> e14ebb86a955dc05dd3f5fa72ea96dfdaada74ed
 ];
