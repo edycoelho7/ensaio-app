@@ -136,11 +136,7 @@ onAuthStateChanged(auth, (user) => {
 // --- SEU CÓDIGO ORIGINAL COMEÇA AQUI EMBAIXO ---
 
 // app/app.js
-<<<<<<< HEAD
 import { SONGS } from '../songs.js?v=1.924';
-=======
-import { SONGS } from '../songs.js?v=1.921';
->>>>>>> e14ebb86a955dc05dd3f5fa72ea96dfdaada74ed
 import { startAll, stopAll, togglePause, seekTo, setVozVolume, setPlaybackVolume, setMetroVolume, setTom, getDuration, getCurrentTime, unlockAudio } from './audio-engine.js?v=2';
 
 // 🔴 ÍCONES DO PLAYER (Mantém os botões redondos)
@@ -220,17 +216,10 @@ fecharExpandido.addEventListener('click', () => {
 // LÓGICA DO REPERTÓRIO DO DIA
 // ==========================================
 const REPERTORIO_DO_DIA = [
-<<<<<<< HEAD
   "Jireh - Get",
   "Sou Grato Por Seu Amor",
   "Jeová Jireh",
   "Agnus De",
-=======
-  "Quem é Esse",
-  "Vida",
-  "O Nosso General É Cristo",
-  "Agnus Dei - Gabriela",
->>>>>>> e14ebb86a955dc05dd3f5fa72ea96dfdaada74ed
   "Cri"
 ];
 
@@ -684,17 +673,10 @@ songSearchEl.addEventListener('input', () => {
 // ==========================================
 // LÓGICA DO POP-UP DE NOVIDADES
 // ==========================================
-<<<<<<< HEAD
 const VERSAO_ATUAL_APP = "1.924"; 
 
 const HISTORICO_NOVIDADES = {
   "1.924": ["Jireh - Get Worship"],
-=======
-const VERSAO_ATUAL_APP = "1.921"; 
-
-const HISTORICO_NOVIDADES = {
-  "1.921": ["Quem é Esse - Julliany Souza", "Vida - Bianca Azevedo", "O Nosso General É Cristo - Comunidade Zona Sul"],
->>>>>>> e14ebb86a955dc05dd3f5fa72ea96dfdaada74ed
   "1.9": ["Digno de Tudo + Te Exaltamos — Nivea Soares", "Alfa e Omega — Julia Vitoria"] 
 };
 
