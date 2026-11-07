@@ -182,5 +182,8 @@ export const SONGS = [
      { id: "78", title: "Quem é Esse", artist: "Julliany Souza", bpm: 124.0, timeSignature: "4/4", offset: 2.15, tom: "F#" },
      { id: "79", title: "Vida", artist: "Bianca Azevedo", bpm: 144.0, timeSignature: "4/4", offset: 0.05, tom: "G" }, 
      { id: "80", title: "O Nosso General É Cristo", artist: "Comunidade Zona Sul", bpm: 147.5, timeSignature: "4/4", offset: 0.40, tom: "C", ocultarMetronomo: true },  
-     { id: "81", title: "Jireh - Get", artist: "Get Worship", bpm: 140.0, timeSignature: "4/4", offset: 2.00, tom: "D#" }
+     { id: "81", title: "Jireh - Get", artist: "Get Worship", bpm: 140.0, timeSignature: "4/4", offset: 2.00, tom: "D#" },
+     { id: "82", title: "Um só", artist: "Nivea Soares", bpm: 125.0, timeSignature: "4/4", offset: 2.05, tom: "A#" },
+     { id: "83", title: "Teu Toque", artist: "Get Worship", bpm: 138, timeSignature: "4/4", offset: 16.4, tom: "G", ocultarMetronomo: true },
+     { id: "84", title: "Jesus Te Amamos", artist: "O Canto das Igrejas", bpm: 130.0, timeSignature: "3/4", offset: 1.70, tom: "E" },
 ];
