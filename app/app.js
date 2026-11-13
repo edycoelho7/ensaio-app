@@ -136,7 +136,7 @@ onAuthStateChanged(auth, (user) => {
 // --- SEU CÓDIGO ORIGINAL COMEÇA AQUI EMBAIXO ---
 
 // app/app.js
-import { SONGS } from '../songs.js?v=1.926';
+import { SONGS } from '../songs.js?v=1.927';
 import { startAll, stopAll, togglePause, seekTo, setVozVolume, setPlaybackVolume, setMetroVolume, setTom, getDuration, getCurrentTime, unlockAudio } from './audio-engine.js?v=2';
 
 // 🔴 ÍCONES DO PLAYER (Mantém os botões redondos)
@@ -216,10 +216,10 @@ fecharExpandido.addEventListener('click', () => {
 // LÓGICA DO REPERTÓRIO DO DIA
 // ==========================================
 const REPERTORIO_DO_DIA = [
-  "Aquele que Está Feliz + Tempo de Festa",
-  "Um só",
-  "Teu Toque",
-  "Jesus Te Amamos",
+  "Fé",
+  "Meia Noite",
+  "Ser Reconhecido",
+  "Jesus Te Ama",
   "Cri"
 ];
 
@@ -680,10 +680,10 @@ songSearchEl.addEventListener('input', () => {
 // ==========================================
 // LÓGICA DO POP-UP DE NOVIDADES
 // ==========================================
-const VERSAO_ATUAL_APP = "1.926"; 
+const VERSAO_ATUAL_APP = "1.928"; 
 
 const HISTORICO_NOVIDADES = {
-  "1.926": ["Um só - Nivea Soares", "Teu Toque - Get Worship", "Jesus Te Amamos - O Canto das Igrejas"],
+  "1.928": ["Fé - Fhop Music"],
   "1.9": ["Digno de Tudo + Te Exaltamos — Nivea Soares", "Alfa e Omega — Julia Vitoria"] 
 };
 
